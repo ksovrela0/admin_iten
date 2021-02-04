@@ -6,7 +6,7 @@
   font-weight: normal;
   font-style: normal;
   src: url('typicons.eot');
-  src: url('typiconsd41d.eot?#iefix') format('embedded-opentype'),
+  src: url('typicons.eot?#iefix') format('embedded-opentype'),
        url('typicons.woff') format('woff'),
        url('typicons.ttf') format('truetype'),
        url('typicons.svg#typicons') format('svg');
