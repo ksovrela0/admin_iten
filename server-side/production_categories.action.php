@@ -7,9 +7,43 @@ $act = $_REQUEST['act'];
 $user_id = $_SESSION['USERID'];
 
 switch ($act){
+    case 'get_add_page':
+        $id = $_REQUEST['id'];
+        $data = array('page' => getPage());
+    break;
     case 'get_edit_page':
         $id = $_REQUEST['id'];
         $data = array('page' => getPage(getCategories($id)));
+    break;
+    case 'save_category':
+        $id = $_REQUEST['id'];
+        $title_geo = $_REQUEST['title_geo'];
+        $title_rus = $_REQUEST['title_rus'];
+        $title_eng = $_REQUEST['title_eng'];
+        if($id == ''){
+            $db->setQuery(" INSERT INTO  product_categories 
+                            SET          title_geo = '$title_geo',
+                                         title_rus = '$title_rus',
+                                         title_eng = '$title_eng'");
+            $db->execQuery();
+        }
+        else{
+            $db->setQuery(" UPDATE  product_categories 
+                            SET     title_geo = '$title_geo',
+                                    title_rus = '$title_rus',
+                                    title_eng = '$title_eng'
+                            WHERE   id = '$id'");
+            $db->execQuery();
+        }
+    break;
+    case 'disable':
+        $ids = $_REQUEST['id'];
+        $ids = explode(',',$ids);
+
+        foreach($ids AS $id){
+            $db->setQuery("UPDATE product_categories SET actived = 0 WHERE id = '$id'");
+            $db->execQuery();
+        }
     break;
     case 'get_columns':
         $columnCount = 		$_REQUEST['count'];
@@ -129,11 +163,34 @@ echo json_encode($data);
 
 function getPage($res = ''){
     $data .= '
-    <fieldset class="fieldset">
-        <legend>მომართვის ავტორი</legend>
-        '.$res[title_geo].'
-    </fieldset>
     
+    
+    <fieldset class="fieldset">
+        <legend>ინფორმაცია</legend>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>კატეგორია GEO</label>
+                <input value="'.$res[title_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>კატეგორია RUS</label>
+                <input value="'.$res[title_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>კატეგორია ENG</label>
+                <input value="'.$res[title_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>სურათი</legend>
+        <div class="dialog_image">
+            <img src="http://new.iten.ge/itenge/'.$res[back_img].'">
+        </div>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
+    </fieldset>
+    <input type="hidden" id="cat_id" value="'.$res[id].'">
     ';
 
     return $data;

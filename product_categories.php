@@ -312,7 +312,6 @@
 			},
 			dataType: "json",
 			success: function(data){
-				console.log(data.page);
 				$('#get_edit_page').html(data.page);
 				$("#get_edit_page").dialog({
 					resizable: false,
@@ -321,13 +320,59 @@
 					modal: true,
 					buttons: {
 						"შენახვა": function() {
-							$( this ).dialog( "close" );
+							save_category();
 						},
 						'დახურვა': function() {
 							$( this ).dialog( "close" );
 						}
 					}
 				});
+			}
+		});
+	});
+	$(document).on('click','#button_add',function(){
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: {
+				act: "get_add_page"
+			},
+			dataType: "json",
+			success: function(data){
+				$('#get_edit_page').html(data.page);
+				$("#get_edit_page").dialog({
+					resizable: false,
+					height: "auto",
+					width: 900,
+					modal: true,
+					buttons: {
+						"შენახვა": function() {
+							save_category();
+						},
+						'დახურვა': function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				});
+			}
+		});
+	});
+	$(document).on('click','#button_trash',function(){
+		var removeIDS = [];
+		var entityGrid = $("#product_categories").data("kendoGrid");
+		var rows = entityGrid.select();
+		rows.each(function(index, row) {
+			var selectedItem = entityGrid.dataItem(row);
+			// selectedItem has EntityVersionId and the rest of your model
+			removeIDS.push(selectedItem.id);
+		});
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: "act=disable&id=" + removeIDS,
+			dataType: "json",
+			success: function (data) {
+				$("#product_categories").data("kendoGrid").dataSource.read();
 			}
 		});
 	});
@@ -339,7 +384,7 @@
 		//KendoUI CLASS CONFIGS BEGIN
 		var aJaxURL	        =   "server-side/production_categories.action.php";
 		var gridName        = 	'product_categories';
-		var actions         = 	'<div class="btn btn-list"><a class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a></div>';
+		var actions         = 	'<div class="btn btn-list"><a id="button_add" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a><a id="button_trash" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-trash"></i> წაშლა</a></div>';
 		var editType        =   "popup"; // Two types "popup" and "inline"
 		var itemPerPage     = 	20;
 		var columnsCount    =	5;
@@ -348,7 +393,7 @@
 									"category_img:string",
 									"category_geo:string",
 									"category_rus:string",
-									"category_eng:date"
+									"category_eng:string"
 								];
 		var columnGeoNames  = 	[
 									"ID", 
@@ -370,6 +415,28 @@
 		const kendo = new kendoUI();
 		kendo.loadKendoUI(aJaxURL,'get_list',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
 
+	}
+	$(document).on('click','#upload_img',function(){
+		$("#upload_back_img").trigger('click');
+	});
+	function save_category(){
+		let params 			= new Object;
+		params.act 			= 'save_category';
+		params.id 			= $("#cat_id").val();
+		params.title_geo 	= $("#title_geo").val();
+		params.title_rus 	= $("#title_rus").val();
+		params.title_eng	= $("#title_eng").val();
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				$("#product_categories").data("kendoGrid").dataSource.read();
+				$('#get_edit_page').dialog("close");
+			}
+		});
+		
 	}
 	</script>
 </body>

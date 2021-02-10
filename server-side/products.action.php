@@ -7,6 +7,62 @@ $act = $_REQUEST['act'];
 $user_id = $_SESSION['USERID'];
 
 switch ($act){
+    case 'get_add_page':
+        $id = $_REQUEST['id'];
+        $data = array('page' => getPage());
+    break;
+    case 'get_edit_page':
+        $id = $_REQUEST['id'];
+        $data = array('page' => getPage(getProduct($id)));
+    break;
+    case 'save_product':
+        $id = $_REQUEST['id'];
+        $title_geo          = $_REQUEST['title_geo'];
+        $title_rus          = $_REQUEST['title_rus'];
+        $title_eng          = $_REQUEST['title_eng'];
+        $poduct_category    = $_REQUEST['poduct_category'];
+        $price              = $_REQUEST['price'];
+        $price_sale         = $_REQUEST['price_sale'];
+        $ingredients_geo    = $_REQUEST['ingredients_geo'];
+        $ingredients_rus    = $_REQUEST['ingredients_rus'];
+        $ingredients_eng    = $_REQUEST['ingredients_eng'];
+        if($id == ''){
+            $db->setQuery(" INSERT INTO  products 
+                            SET          title_geo = '$title_geo',
+                                         title_rus = '$title_rus',
+                                         title_eng = '$title_eng',
+                                         cat_id = '$poduct_category',
+                                         price = '$price',
+                                         price_sale = '$price_sale',
+                                         ingredients_geo = '$ingredients_geo',
+                                         ingredients_rus = '$ingredients_rus',
+                                         ingredients_eng = '$ingredients_eng'");
+            $db->execQuery();
+        }
+        else{
+            $db->setQuery(" UPDATE  products 
+                            SET     title_geo = '$title_geo',
+                                    title_rus = '$title_rus',
+                                    title_eng = '$title_eng',
+                                    cat_id = '$poduct_category',
+                                    price = '$price',
+                                    price_sale = '$price_sale',
+                                    ingredients_geo = '$ingredients_geo',
+                                    ingredients_rus = '$ingredients_rus',
+                                    ingredients_eng = '$ingredients_eng'
+                            WHERE   id = '$id'");
+            $db->execQuery();
+        }
+    break;
+    case 'disable':
+        $ids = $_REQUEST['id'];
+        $ids = explode(',',$ids);
+
+        foreach($ids AS $id){
+            $db->setQuery("UPDATE products SET actived = 0 WHERE id = '$id'");
+            $db->execQuery();
+        }
+    break;
     case 'get_columns':
         $columnCount = 		$_REQUEST['count'];
         $cols[] =           $_REQUEST['cols'];
@@ -106,13 +162,17 @@ switch ($act){
         $columnCount = 		$_REQUEST['count'];
 		$cols[]      =      $_REQUEST['cols'];
 
-        $db->setQuery(" SELECT  id,
-                                CONCAT('<img src=\"http://new.iten.ge/itenge/',back_img,'\" style=\"height:150px;\">'),
-                                title_geo,
-                                title_rus,
-                                title_eng
-                        FROM    product_categories
-                        WHERE   actived = 1");
+        $db->setQuery(" SELECT  products.id,
+                                CONCAT('<img src=\"http://new.iten.ge/itenge/',products.back_img,'\" style=\"height:150px;\">'),
+                                products.title_geo,
+                                products.title_rus,
+                                products.title_eng,
+                                product_categories.title_geo,
+                                IF(ISNULL(products.price_sale) OR products.price_sale = 0,CONCAT(products.price,' GEL'),CONCAT(products.price_sale,' GEL <p style=\"text-decoration: line-through;\">',products.price,' GEL</p>'))
+                        FROM    products
+                        LEFT JOIN product_categories ON product_categories.id = products.cat_id
+                        WHERE   products.actived = 1
+                        ORDER BY products.id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
@@ -121,4 +181,107 @@ switch ($act){
 
 
 echo json_encode($data);
+
+function getPage($res = ''){
+    $data .= '
+    
+    
+    <fieldset class="fieldset">
+        <legend>ინფორმაცია</legend>
+        <div class="row">
+            <div class="col-sm-4">
+                <label>დასახელება GEO</label>
+                <input value="'.$res[title_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>დასახელება RUS</label>
+                <input value="'.$res[title_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>დასახელება ENG</label>
+                <input value="'.$res[title_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>კატეგორია</label>
+                <select id="poduct_category">'.get_cat_1($res[category]).'</select>
+            </div>
+            <div class="col-sm-4">
+                <label>ფასი</label>
+                <input value="'.$res[price].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="price" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>ფასი ფასდაკლებით</label>
+                <input value="'.$res[price_sale].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="price_sale" class="idle" autocomplete="off">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>აღწერა</legend>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები GEO</label>
+            <textarea style="width: 100%;" id="ingredients_geo">'.$res[ingredients_geo].'</textarea>
+        </div>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები RUS</label>
+            <textarea style="width: 100%;" id="ingredients_rus">'.$res[ingredients_rus].'</textarea>
+        </div>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები ENG</label>
+            <textarea style="width: 100%;" id="ingredients_eng">'.$res[ingredients_eng].'</textarea>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>სურათი</legend>
+        <div class="dialog_image">
+            <img src="http://new.iten.ge/itenge/'.$res[back_img].'">
+        </div>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
+    </fieldset>
+    <input type="hidden" id="product_id" value="'.$res[id].'">
+    ';
+
+    return $data;
+}
+function get_cat_1($id){
+    GLOBAL $db;
+    $data = '';
+    $db->setQuery("SELECT   id,
+                            title_geo AS 'name'
+                    FROM    product_categories
+                    WHERE   actived = 1");
+    $cats = $db->getResultArray();
+    foreach($cats['result'] AS $cat){
+        if($cat[id] == $id){
+            $data .= '<option value="'.$cat[id].'" selected="selected">'.$cat[name].'</option>';
+        }
+        else{
+            $data .= '<option value="'.$cat[id].'">'.$cat[name].'</option>';
+        }
+        
+    }
+
+    return $data;
+}
+function getProduct($id){
+    GLOBAL $db;
+
+    $db->setQuery(" SELECT  products.id,
+                            products.back_img,
+                            products.title_geo,
+                            products.title_rus,
+                            products.title_eng,
+                            product_categories.id AS 'category',
+                            products.price_sale,
+                            products.ingredients_geo,
+                            products.ingredients_rus,
+                            products.ingredients_eng,
+                            products.price
+                    FROM    products
+                    LEFT JOIN product_categories ON product_categories.id = products.cat_id
+                    WHERE   products.id = '$id' AND products.actived = 1");
+    $result = $db->getResultArray();
+
+    return $result['result'][0];
+}
 ?>
