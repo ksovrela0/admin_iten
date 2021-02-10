@@ -293,7 +293,7 @@
 	<!-- Jquery js-->
 	
 	<div class="main-navbar-backdrop"></div>
-	<div title="პროდუქციის კატეგორია" id="get_edit_page">
+	<div title="პროდუქცია" id="get_edit_page">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 	</div>
 	<script>
