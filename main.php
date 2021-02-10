@@ -11,34 +11,7 @@
       <!-- Title --> 
       <title>სატესტო ობიექტი - Iten.ge CONTROL PANEL</title>
       <!---Fontawesome css--> 
-      <link href="assets/plugins/fontawesome-free/css/all.min.css" rel="stylesheet">
-      <!---Ionicons css--> 
-      <link href="assets/plugins/ionicons/css/ionicons.min.css" rel="stylesheet">
-      <!---Typicons css--> 
-      <link href="assets/plugins/typicons.font/typicons.css" rel="stylesheet">
-      <!---Feather css--> 
-      <link href="assets/plugins/feather/feather.css" rel="stylesheet">
-      <!---Falg-icons css--> 
-      <link href="assets/plugins/flag-icon-css/css/flag-icon.min.css" rel="stylesheet">
-      <!---Style css--> 
-      <link href="assets/css/style.css" rel="stylesheet">
-      <link href="assets/css/custom-style.css" rel="stylesheet">
-      <link href="assets/css/skins.css" rel="stylesheet">
-      <link href="assets/css/dark-style.css" rel="stylesheet">
-      <link href="assets/css/custom-dark-style.css" rel="stylesheet">
-      <!---Select2 css--> 
-      <link href="assets/plugins/select2/css/select2.min.css" rel="stylesheet">
-      <!--Mutipleselect css--> 
-      <link rel="stylesheet" href="assets/plugins/multipleselect/multiple-select.css">
-      <!---Sidebar css--> 
-      <link href="assets/plugins/sidebar/sidebar.css" rel="stylesheet">
-      <!---Jquery.mCustomScrollbar css--> 
-      <link href="assets/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.css" rel="stylesheet">
-      <!---Sidemenu css--> 
-      <link href="assets/plugins/sidemenu/closed-sidemenu.css" rel="stylesheet">
-      <!-- Switcher css --> 
-      <link href="assets/switcher/css/switcher.css" rel="stylesheet">
-      <link href="assets/switcher/demo.css" rel="stylesheet">
+      <?php include('includes/functions.php'); ?>
       <meta http-equiv="imagetoolbar" content="no">
       <style type="text/css">
          <!-- input,textarea{-webkit-touch-callout:default;-webkit-user-select:auto;-khtml-user-select:auto;-moz-user-select:text;-ms-user-select:text;user-select:text} *{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:-moz-none;-ms-user-select:none;user-select:none} -->
@@ -55,183 +28,17 @@
    </head>
    <body>
       
-      <div class="switcher-wrapper">
-         <div class="demo_changer">
-            <div class="demo-icon bg_dark"><i class="fa fa-cog fa-spin  text_primary"></i></div>
-            <div class="form_holder sidebar-right1">
-               <div class="row">
-                  <div class="predefined_styles">
-                     <div class="swichermainleft">
-                        <h4>Dashlead Versions</h4>
-                        <div class="pl-3 pr-3"> <a href="index.html" class="btn btn-success  btn-block mt-0">LTR Version</a> <a href="index1.html" class="btn btn-info  btn-block">RTL Version</a> </div>
-                     </div>
-                     <div class="swichermainleft">
-                        <h4>Navigation Style</h4>
-                        <div class="pl-3 pr-3"> <a class="btn btn-primary btn-block" href="Horizontal/index.html"> Horizontal </a> <a class="btn btn-secondary btn-block" href="Leftmenu-Icon-Sidebar/index.html"> Left-menu </a> </div>
-                     </div>
-                     <div class="swichermainleft">
-                        <h4>Theme Layout</h4>
-                        <div class="switch_section">
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Light Theme</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch" class="onoffswitch2-checkbox" checked=""> <label for="myonoffswitch" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Dark Theme</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch1" class="onoffswitch2-checkbox"> <label for="myonoffswitch1" class="onoffswitch2-label"></label> </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="clearfix"></div>
-                     <div class="swichermainleft">
-                        <h4>Body Styles</h4>
-                        <div class="switch_section">
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Default</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch13" class="onoffswitch2-checkbox" checked=""> <label for="myonoffswitch13" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Boxed</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch14" class="onoffswitch2-checkbox"> <label for="myonoffswitch14" class="onoffswitch2-label"></label> </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="swichermainleft">
-                        <h4>Header Styles Mode</h4>
-                        <div class="switch_section">
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Color Header</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch3" class="onoffswitch2-checkbox"> <label for="myonoffswitch3" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Graident Header</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch4" class="onoffswitch2-checkbox"> <label for="myonoffswitch4" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Reset Header</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch2" class="onoffswitch2-checkbox"> <label for="myonoffswitch2" class="onoffswitch2-label"></label> </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="swichermainleft">
-                        <h4>Leftmenu Styles Mode</h4>
-                        <div class="switch_section">
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Color Menu</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch10" class="onoffswitch2-checkbox"> <label for="myonoffswitch10" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="switch-toggle d-flex dark-switch">
-                              <span class="mr-auto">Dark Menu</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch11" class="onoffswitch2-checkbox"> <label for="myonoffswitch11" class="onoffswitch2-label"></label> </div>
-                           </div>
-                           <div class="light-switch">
-                              <div class="switch-toggle d-flex">
-                                 <span class="mr-auto">Light Menu</span> 
-                                 <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch9" class="onoffswitch2-checkbox"> <label for="myonoffswitch9" class="onoffswitch2-label"></label> </div>
-                              </div>
-                           </div>
-                           <div class="switch-toggle d-flex">
-                              <span class="mr-auto">Gradient-Color Menu</span> 
-                              <div class="onoffswitch2"><input type="radio" name="onoffswitch2" id="myonoffswitch12" class="onoffswitch2-checkbox"> <label for="myonoffswitch12" class="onoffswitch2-label"></label> </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="swichermainleft border-top  mt-2 text-center">
-                        <div class="p-3"> <a href="index.html" class="btn btn-primary btn-block mt-0">View Demo</a> <a href="https://themeforest.net/item/dashlead-admin-panel-html-template/25087593" class="btn btn-secondary btn-block">Buy Now</a> <a href="https://themeforest.net/user/sprukosoft/portfolio" class="btn btn-info btn-block">Our Portfolio</a> </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
+      <?php include('includes/switcher.php'); ?>
       <!-- End Switcher --> <!-- Loader --> 
       <div id="global-loader" style="display: none;"> <img src="assets/img/loader.svg" class="loader-img" alt="Loader"> </div>
       <!-- End Loader --> <!-- Page --> 
       <div class="page">
          <!-- Sidemenu --> 
-         <div class="main-sidebar main-sidebar-sticky side-menu ps">
-            <div class="sidemenu-logo"> <a class="main-logo" href="index.php"> <img src="assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo"> <img src="assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo"> <img src="assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo"> <img src="assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo"> </a> </div>
-            <div class="main-sidebar-body">
-               <ul class="nav">
-                  <li class="nav-label">სტატისტიკა</li>
-                  <li class="nav-item active"> <a class="nav-link" href="index.php"><i class="fe fe-airplay"></i><span class="sidemenu-label">მთავარი/სტატისტიკა</span></a> </li>
-                  <li class="nav-label">შეკვეთები</li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">მიმდინარე შეკვეთები</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">შეკვეთების ისტორია</span></a> </li>
-                  <li class="nav-label">ობიექტი</li>
-                  <li class="nav-item"> <a class="nav-link" href="products.php"><i class="fe fe-database"></i><span class="sidemenu-label">კატალოგი</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-layers"></i><span class="sidemenu-label">პროდუქციის კატეგორიები</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-aperture"></i><span class="sidemenu-label">ბანერი</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-shopping-cart"></i><span class="sidemenu-label">სპეციალური შეთავაზებები</span></a> </li>
-                  
-                  <li class="nav-label">ფინანსები</li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">ფინანსური სტატისტიკა</span></a> </li>
-                  <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">ფინანსების მართვა</span></a> </li>
-
-                  
-               </ul>
-            </div>
-            <div class="ps__rail-x" style="left: 0px; top: 0px;">
-               <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
-            </div>
-            <div class="ps__rail-y" style="top: 0px; right: 0px;">
-               <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
-            </div>
-         </div>
+         <?php include('includes/menu.php'); ?>
          <!-- End Sidemenu --> <!-- Main Content--> 
          <div class="main-content side-content pt-0">
             <!-- Main Header--> 
-            <div class="main-header side-header sticky sticky-pin" style="margin-bottom: -64px;">
-               <div class="container-fluid">
-                  <div class="main-header-left"> <a class="main-logo d-lg-none" href="index.html"> <img src="assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo"> <img src="assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo"> <img src="assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo"> <img src="assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo"> </a> <a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a> </div>
-                  <div class="main-header-right">
-                     <div class="dropdown d-md-flex"> <a class="nav-link icon full-screen-link"> <i class="fe fe-maximize fullscreen-button"></i> </a> </div>
-                     <div class="dropdown main-header-notification">
-                        <a class="nav-link icon" href=""> <i class="fe fe-bell"></i> <span class="pulse bg-danger"></span> </a> 
-                        <div class="dropdown-menu">
-                           <div class="header-navheading">
-                              <p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
-                           </div>
-                           <div class="main-notification-list">
-                              <div class="media new">
-                                 <div class="main-img-user online"><img alt="avatar" src="assets/img/users/5.jpg"></div>
-                                 <div class="media-body">
-                                    <p>Congratulate <strong>Olivia James</strong> for New template start</p>
-                                    <span>Oct 15 12:32pm</span> 
-                                 </div>
-                              </div>
-                              <div class="media">
-                                 <div class="main-img-user"><img alt="avatar" src="assets/img/users/2.jpg"></div>
-                                 <div class="media-body">
-                                    <p><strong>Joshua Gray</strong> New Message Received</p>
-                                    <span>Oct 13 02:56am</span> 
-                                 </div>
-                              </div>
-                              <div class="media">
-                                 <div class="main-img-user online"><img alt="avatar" src="assets/img/users/3.jpg"></div>
-                                 <div class="media-body">
-                                    <p><strong>Elizabeth Lewis</strong> added new schedule realease</p>
-                                    <span>Oct 12 10:40pm</span> 
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="dropdown-footer"> <a href="">View All Notifications</a> </div>
-                        </div>
-                     </div>
-                     <div class="dropdown main-profile-menu">
-                        <a class="main-img-user" href=""><img alt="avatar" src="assets/img/users/1.jpg"></a> 
-                        <div class="dropdown-menu">
-                           <div class="header-navheading">
-                              <h6 class="main-notification-title">Sonia Taylor</h6>
-                              <p class="main-notification-text">Web Designer</p>
-                           </div>
-                           <a class="dropdown-item border-top" href=""> <i class="fe fe-user"></i> My Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-edit"></i> Edit Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Account Settings </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Support </a> <a class="dropdown-item" href=""> <i class="fe fe-compass"></i> Activity </a> <a class="dropdown-item" href="signin.html"> <i class="fe fe-power"></i> Sign Out </a> 
-                        </div>
-                     </div>
-                     <div class="dropdown d-md-flex header-settings"> <a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right"> <i class="fe fe-align-right"></i> </a> </div>
-                  </div>
-               </div>
-            </div>
+            <?php include('includes/header.php'); ?>
             <!-- End Main Header--> 
             <div class="container-fluid">
                <!-- Page Header --> 
@@ -1262,110 +1069,7 @@
          <!--End Footer--> 
       </div>
       <!-- End Page --> <!-- Back-to-top --> <a href="#top" id="back-to-top"><i class="fe fe-arrow-up"></i></a> <!-- Jquery js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/jquery/jquery.min.js"></script><script type="text/javascript">
-      </script> <!-- Bootstrap js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script><script type="text/javascript">
-      </script> <!-- Ionicons js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/ionicons/ionicons.js"></script><script type="text/javascript">
-      </script> <!-- Rating js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/rating/jquery.rating-stars.js"></script><script type="text/javascript">
-      </script> <!-- Flot js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/jquery.flot/jquery.flot.js"></script><script type="text/javascript">
-      </script> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/jquery.flot/jquery.flot.resize.js"></script><script type="text/javascript">
-      </script> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/js/chart.flot.sampledata.js"></script><script type="text/javascript">
-      </script> <!-- Chart.Bundle js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/chart.js/Chart.bundle.min.js"></script><script type="text/javascript">
-      </script> <!-- Peity js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/peity/jquery.peity.min.js"></script><script type="text/javascript">
-      </script> <!-- Jquery-Ui js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/jquery-ui/ui/widgets/datepicker.js"></script><script type="text/javascript">
-      </script> <!-- Select2 js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/select2/js/select2.min.js"></script><script type="text/javascript">
-      </script> <!--MutipleSelect js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/multipleselect/multiple-select.js"></script><script type="text/javascript">
-      </script> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/multipleselect/multi-select.js"></script><script type="text/javascript">
-      </script> <!-- Jquery.mCustomScrollbar js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/jquery.mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js"></script><script type="text/javascript">
-      </script> <!-- Perfect-scrollbar js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/perfect-scrollbar/perfect-scrollbar.min.js"></script><script type="text/javascript">
-      </script> <!-- Sidemenu js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/sidemenu/closed-sidemenu.js"></script><script type="text/javascript">
-      </script> <!-- Sidebar js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/plugins/sidebar/sidebar.js"></script><script type="text/javascript">
-      </script> <!-- Sticky js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/js/sticky.js"></script><script type="text/javascript">
-      </script> <!-- Dashboard js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/js/index.js"></script><script type="text/javascript">
-      </script> <!-- Switcher js --> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/switcher/js/switcher.js"></script><script type="text/javascript">
-      </script> <!-- Custom js--> 
-      <noscript>
-         <p>To display this page you need a browser that supports JavaScript.</p>
-      </noscript>
-      <script src="assets/js/custom.js"></script>
+      
       <div id="ui-datepicker-div" class="ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"></div>
       <div class="main-navbar-backdrop"></div>
    </body>

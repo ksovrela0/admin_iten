@@ -1,6 +1,7 @@
 <?php
 include('db.php');
 $act = $_REQUEST['act'];
+$page = $_REQUEST['page'];
 GLOBAL $db;
 GLOBAL $authResult;
 $db = new dbClass();
@@ -21,9 +22,19 @@ switch ($act){
         }
         
     break;
+    case 'sign_out':
+        session_destroy();
+        unset($_SESSION['USERID']);
+    break;
 }
+
 if(isset($_SESSION['USERID'])){
-    include('main.php');
+    if($page == ''){
+        include('main.php');
+    }
+    else{
+        include($page.'.php');
+    }
 }
 else{
     include('login.php');

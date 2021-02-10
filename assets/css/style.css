@@ -50530,3 +50530,24 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
+.fieldset{
+	border-radius: 6px;
+    padding: 0px 10px 3px 10px;
+    border: solid 1px #cacaca;
+}
+
+.fieldset legend{
+
+	border-bottom: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+	display: flex;
+	align-items: center;
+	font-family: BPG;
+	margin: 7px;
+	display: block;
+	width: auto;
+	padding: 0 2px;
+	
+}
