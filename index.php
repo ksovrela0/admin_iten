@@ -9,16 +9,19 @@ switch ($act){
     case 'auth':
         $username = $_REQUEST['username'];
         $password = md5($_REQUEST['password']);
-        $db->setQuery(" SELECT  id
+        $db->setQuery(" SELECT  id,
+                                group_id
                         FROM    users
                         WHERE   actived = 1 AND `username` = '$username' AND `password` = '$password'");
-        $USERID = $db->getResultArray();
-        $USERID = $USERID['result'][0]['id'];
+        $USERDATA = $db->getResultArray();
+        $USERID = $USERDATA['result'][0]['id'];
+        $USERGR = $USERDATA['result'][0]['group_id'];
         if($USERID == ''){
             $authResult = 'NO';
         }
         else{
             $_SESSION['USERID'] = $USERID;
+            $_SESSION['GRPID'] = $USERGR;
         }
         
     break;

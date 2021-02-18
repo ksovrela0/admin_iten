@@ -391,7 +391,7 @@
 		var actions         = 	'<div class="btn btn-list"><a id="button_add" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a><a id="button_trash" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-trash"></i> წაშლა</a></div>';
 		var editType        =   "popup"; // Two types "popup" and "inline"
 		var itemPerPage     = 	20;
-		var columnsCount    =	7;
+		var columnsCount    =	8;
 		var columnsSQL      = 	[
 									"id:string",
 									"category_img:string",
@@ -399,7 +399,8 @@
 									"name_rus:string",
 									"name_eng:string",
 									"category:string",
-									"price::string"
+									"price::string",
+									"status::string"
 								];
 		var columnGeoNames  = 	[
 									"ID", 
@@ -408,14 +409,15 @@
 									"დასახელება RUS",
 									"დასახელება ENG",
 									"კატეგორია",
-									"ფასი"
+									"ფასი",
+									"სტატუსი"
 								];
 
-		var showOperatorsByColumns  =   [0,0,0,0,0,0,0,0]; 
-		var selectors               =   [0,0,0,0,0,0,0,0]; 
+		var showOperatorsByColumns  =   [0,0,0,0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0,0,0,0]; 
 
-		var locked                  =   [0,0,0,0,0,0,0,0];
-		var lockable                =   [0,0,0,0,0,0,0,0];
+		var locked                  =   [0,0,0,0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0,0,0,0];
 
 		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
 		//KendoUI CLASS CONFIGS END

@@ -13,25 +13,43 @@ switch ($act){
     break;
     case 'get_edit_page':
         $id = $_REQUEST['id'];
-        $data = array('page' => getPage(getCategories($id)));
+        $data = array('page' => getPage(getProduct($id)));
     break;
-    case 'save_category':
+    case 'save_product':
         $id = $_REQUEST['id'];
-        $title_geo = $_REQUEST['title_geo'];
-        $title_rus = $_REQUEST['title_rus'];
-        $title_eng = $_REQUEST['title_eng'];
+        $title_geo          = $_REQUEST['title_geo'];
+        $title_rus          = $_REQUEST['title_rus'];
+        $title_eng          = $_REQUEST['title_eng'];
+        $poduct_category    = $_REQUEST['poduct_category'];
+        $price              = $_REQUEST['price'];
+        $price_sale         = $_REQUEST['price_sale'];
+        $ingredients_geo    = $_REQUEST['ingredients_geo'];
+        $ingredients_rus    = $_REQUEST['ingredients_rus'];
+        $ingredients_eng    = $_REQUEST['ingredients_eng'];
         if($id == ''){
-            $db->setQuery(" INSERT INTO  product_categories 
+            $db->setQuery(" INSERT INTO  products 
                             SET          title_geo = '$title_geo',
                                          title_rus = '$title_rus',
-                                         title_eng = '$title_eng'");
+                                         title_eng = '$title_eng',
+                                         cat_id = '$poduct_category',
+                                         price = '$price',
+                                         price_sale = '$price_sale',
+                                         ingredients_geo = '$ingredients_geo',
+                                         ingredients_rus = '$ingredients_rus',
+                                         ingredients_eng = '$ingredients_eng'");
             $db->execQuery();
         }
         else{
-            $db->setQuery(" UPDATE  product_categories 
+            $db->setQuery(" UPDATE  products 
                             SET     title_geo = '$title_geo',
                                     title_rus = '$title_rus',
-                                    title_eng = '$title_eng'
+                                    title_eng = '$title_eng',
+                                    cat_id = '$poduct_category',
+                                    price = '$price',
+                                    price_sale = '$price_sale',
+                                    ingredients_geo = '$ingredients_geo',
+                                    ingredients_rus = '$ingredients_rus',
+                                    ingredients_eng = '$ingredients_eng'
                             WHERE   id = '$id'");
             $db->execQuery();
         }
@@ -41,7 +59,7 @@ switch ($act){
         $ids = explode(',',$ids);
 
         foreach($ids AS $id){
-            $db->setQuery("UPDATE product_categories SET actived = 0 WHERE id = '$id'");
+            $db->setQuery("UPDATE products SET actived = 0 WHERE id = '$id'");
             $db->execQuery();
         }
     break;
@@ -144,19 +162,22 @@ switch ($act){
         $columnCount = 		$_REQUEST['count'];
 		$cols[]      =      $_REQUEST['cols'];
 
-        $db->setQuery(" SELECT  id,
-                                CONCAT('<img src=\"http://new.iten.ge/itenge/',back_img,'\" style=\"height:150px;\">'),
-                                title_geo,
-                                title_rus,
-                                title_eng,
-                                CONCAT(position,' თანმიმდევრობა'),
+        $db->setQuery(" SELECT  `transactions`.id,
+                                transaction_type.name,
+                                `transactions`.datetime,
+                                users.username,
+                                `transactions`.amount,
+                                '-' AS 'order',
                                 CASE
-                                    WHEN status_id = 1 THEN '<div class=\"cat_status_1\">აქტიური</div>'
-                                    WHEN status_id = 2 THEN '<div class=\"cat_status_2\">მოდერაციაში</div>'
-                                    WHEN status_id = 3 THEN '<div class=\"cat_status_3\">გამორთული</div>'
-                                END AS `status`
-                        FROM    product_categories
-                        WHERE   actived = 1
+                                    WHEN `transactions`.status_id = 1 THEN '<span class=\"badge badge-success\">OK</span>'
+                                    WHEN `transactions`.status_id = 2 THEN '<span class=\"badge badge-secondary\">მოლოდინში</span>'
+                                    WHEN `transactions`.status_id = 3 THEN '<span class=\"badge badge-danger\">უარყოფილი</span>'
+                                END AS 'status'
+
+                        FROM    `transactions`
+                        LEFT JOIN users ON users.id = `transactions`.user_id
+                        LEFT JOIN transaction_type ON transaction_type.id = `transactions`.cat_id
+                        WHERE   `transactions`.actived = 1
                         ORDER BY id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -175,17 +196,44 @@ function getPage($res = ''){
         <legend>ინფორმაცია</legend>
         <div class="row">
             <div class="col-sm-4">
-                <label>კატეგორია GEO</label>
+                <label>დასახელება GEO</label>
                 <input value="'.$res[title_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
             </div>
             <div class="col-sm-4">
-                <label>კატეგორია RUS</label>
+                <label>დასახელება RUS</label>
                 <input value="'.$res[title_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
             </div>
             <div class="col-sm-4">
-                <label>კატეგორია ENG</label>
+                <label>დასახელება ENG</label>
                 <input value="'.$res[title_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
             </div>
+            <div class="col-sm-4">
+                <label>კატეგორია</label>
+                <select id="poduct_category">'.get_cat_1($res[category]).'</select>
+            </div>
+            <div class="col-sm-4">
+                <label>ფასი</label>
+                <input value="'.$res[price].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="price" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>ფასი ფასდაკლებით</label>
+                <input value="'.$res[price_sale].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="price_sale" class="idle" autocomplete="off">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>აღწერა</legend>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები GEO</label>
+            <textarea style="width: 100%;" id="ingredients_geo">'.$res[ingredients_geo].'</textarea>
+        </div>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები RUS</label>
+            <textarea style="width: 100%;" id="ingredients_rus">'.$res[ingredients_rus].'</textarea>
+        </div>
+        <div class="col-sm-12">
+            <label>ინგრედიენტები ENG</label>
+            <textarea style="width: 100%;" id="ingredients_eng">'.$res[ingredients_eng].'</textarea>
         </div>
     </fieldset>
     <fieldset class="fieldset">
@@ -196,22 +244,48 @@ function getPage($res = ''){
         <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
     </fieldset>
-    <input type="hidden" id="cat_id" value="'.$res[id].'">
+    <input type="hidden" id="product_id" value="'.$res[id].'">
     ';
 
     return $data;
 }
-function getCategories($id){
+function get_cat_1($id){
+    GLOBAL $db;
+    $data = '';
+    $db->setQuery("SELECT   id,
+                            title_geo AS 'name'
+                    FROM    product_categories
+                    WHERE   actived = 1");
+    $cats = $db->getResultArray();
+    foreach($cats['result'] AS $cat){
+        if($cat[id] == $id){
+            $data .= '<option value="'.$cat[id].'" selected="selected">'.$cat[name].'</option>';
+        }
+        else{
+            $data .= '<option value="'.$cat[id].'">'.$cat[name].'</option>';
+        }
+        
+    }
+
+    return $data;
+}
+function getProduct($id){
     GLOBAL $db;
 
-    $db->setQuery(" SELECT  id,
-                            back_img,
-                            title_geo,
-                            title_rus,
-                            title_eng
-
-                    FROM    product_categories
-                    WHERE   id = '$id' AND actived = 1");
+    $db->setQuery(" SELECT  products.id,
+                            products.back_img,
+                            products.title_geo,
+                            products.title_rus,
+                            products.title_eng,
+                            product_categories.id AS 'category',
+                            products.price_sale,
+                            products.ingredients_geo,
+                            products.ingredients_rus,
+                            products.ingredients_eng,
+                            products.price
+                    FROM    products
+                    LEFT JOIN product_categories ON product_categories.id = products.cat_id
+                    WHERE   products.id = '$id' AND products.actived = 1");
     $result = $db->getResultArray();
 
     return $result['result'][0];

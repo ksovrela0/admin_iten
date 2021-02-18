@@ -168,7 +168,12 @@ switch ($act){
                                 products.title_rus,
                                 products.title_eng,
                                 product_categories.title_geo,
-                                IF(ISNULL(products.price_sale) OR products.price_sale = 0,CONCAT(products.price,' GEL'),CONCAT(products.price_sale,' GEL <p style=\"text-decoration: line-through;\">',products.price,' GEL</p>'))
+                                IF(ISNULL(products.price_sale) OR products.price_sale = 0,CONCAT(products.price,' GEL'),CONCAT(products.price_sale,' GEL <p style=\"text-decoration: line-through;\">',products.price,' GEL</p>')),
+                                CASE
+                                    WHEN products.status_id = 1 THEN '<div class=\"cat_status_1\">აქტიური</div>'
+                                    WHEN products.status_id = 2 THEN '<div class=\"cat_status_2\">მოდერაციაში</div>'
+                                    WHEN products.status_id = 3 THEN '<div class=\"cat_status_3\">გამორთული</div>'
+                                END AS `status`
                         FROM    products
                         LEFT JOIN product_categories ON product_categories.id = products.cat_id
                         WHERE   products.actived = 1

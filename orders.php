@@ -162,6 +162,9 @@
 		cursor: default!important;
 		padding: 0!important;
 	}
+	.chosen-container {
+		width: 95% !important;
+	}
 	</style>
 	<!--[if gte IE 5]><frame></frame><![endif]-->
 	<script src="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/ionicons.z18qlu2u.js" data-resources-url="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/" data-namespace="ionicons"></script>
@@ -189,17 +192,17 @@
 				<!-- Page Header -->
 				<div class="page-header">
 					<div>
-						<h2 class="main-content-title tx-24 mg-b-5">პროდუქცია</h2>
+						<h2 class="main-content-title tx-24 mg-b-5">შეკვეთბი</h2>
 						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">პროდუქცია</a></li>
-							<li class="breadcrumb-item active" aria-current="page">კატეგორიები</li>
+							<li class="breadcrumb-item"><a href="#">შეკვეთები</a></li>
+							<li class="breadcrumb-item active" aria-current="page">მიმდინარე შეკვეთები</li>
 						</ol>
 					</div>
 				</div>
 				<!-- End Page Header -->
 				<!-- Row -->
 				<div class="row">
-					<div id="product_categories"></div>
+					<div id="orders"></div>
 				</div>
 				<!-- End Row -->
 			</div>
@@ -290,13 +293,13 @@
 	<!-- Jquery js-->
 	
 	<div class="main-navbar-backdrop"></div>
-	<div title="პროდუქციის კატეგორია" id="get_edit_page">
+	<div title="შეკვეთა" id="get_edit_page">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 	</div>
 	<script>
-	var aJaxURL = "server-side/production_categories.action.php";
-	$(document).on("dblclick", "#product_categories tr.k-state-selected", function () {
-		var grid = $("#product_categories").data("kendoGrid");
+	var aJaxURL = "server-side/orders.action.php";
+	$(document).on("dblclick", "#orders tr.k-state-selected", function () {
+		var grid = $("#orders").data("kendoGrid");
 		var dItem = grid.dataItem($(this));
 		
 		if(dItem.id == ''){
@@ -319,14 +322,16 @@
 					width: 900,
 					modal: true,
 					buttons: {
-						"შენახვა": function() {
-							save_category();
+						"დაწყება": function() {
+							alert('შეკვეთა მზადების პროცესშია');
 						},
 						'დახურვა': function() {
 							$( this ).dialog( "close" );
 						}
 					}
 				});
+				var hidden = "&order_id="+dItem.id;
+				LoadKendoTable_orderDetail(hidden);
 			}
 		});
 	});
@@ -347,7 +352,7 @@
 					modal: true,
 					buttons: {
 						"შენახვა": function() {
-							save_category();
+							save_product();
 						},
 						'დახურვა': function() {
 							$( this ).dialog( "close" );
@@ -359,7 +364,7 @@
 	});
 	$(document).on('click','#button_trash',function(){
 		var removeIDS = [];
-		var entityGrid = $("#product_categories").data("kendoGrid");
+		var entityGrid = $("#products").data("kendoGrid");
 		var rows = entityGrid.select();
 		rows.each(function(index, row) {
 			var selectedItem = entityGrid.dataItem(row);
@@ -372,46 +377,81 @@
 			data: "act=disable&id=" + removeIDS,
 			dataType: "json",
 			success: function (data) {
-				$("#product_categories").data("kendoGrid").dataSource.read();
+				$("#products").data("kendoGrid").dataSource.read();
 			}
 		});
 	});
 	$( document ).ready(function() {
 		LoadKendoTable_incomming()
 	});
+	function LoadKendoTable_orderDetail(hidden){
+
+		//KendoUI CLASS CONFIGS BEGIN
+		var aJaxURL	        =   "server-side/orders.action.php";
+		var gridName        = 	'orders_detail';
+		var actions         = 	'';
+		var editType        =   "popup"; // Two types "popup" and "inline"
+		var itemPerPage     = 	20;
+		var columnsCount    =	6;
+		var columnsSQL      = 	[
+									"id:string",
+									"photo:string",
+									"name:string",
+									"cty:string",
+									"comment:string",
+									"action:string"
+								];
+		var columnGeoNames  = 	[
+									"ID", 
+									"ფოტო",
+									"დასახელება",
+									"რაოდენობა",
+									"კომენტარი",
+									"ქმედება"
+								];
+
+		var showOperatorsByColumns  =   [0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0]; 
+
+		var locked                  =   [0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0];
+
+		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
+		//KendoUI CLASS CONFIGS END
+			
+		const kendo = new kendoUI();
+		kendo.loadKendoUI(aJaxURL,'get_list_detail',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
+
+	}
 	function LoadKendoTable_incomming(hidden){
 
 		//KendoUI CLASS CONFIGS BEGIN
-		var aJaxURL	        =   "server-side/production_categories.action.php";
-		var gridName        = 	'product_categories';
-		var actions         = 	'<div class="btn btn-list"><a id="button_add" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a><a id="button_trash" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-trash"></i> წაშლა</a></div>';
+		var aJaxURL	        =   "server-side/orders.action.php";
+		var gridName        = 	'orders';
+		var actions         = 	'';
 		var editType        =   "popup"; // Two types "popup" and "inline"
 		var itemPerPage     = 	20;
-		var columnsCount    =	7;
+		var columnsCount    =	5;
 		var columnsSQL      = 	[
 									"id:string",
-									"category_img:string",
-									"category_geo:string",
-									"category_rus:string",
-									"category_eng:string",
-									"position:string",
+									"date:string",
+									"order:string",
+									"price:string",
 									"status:string"
 								];
 		var columnGeoNames  = 	[
 									"ID", 
-									"სურათი",
-									"კატეგორია GEO",
-									"კატეგორია RUS",
-									"კატეგორია ENG",
-									"პოზიცია",
+									"თარიღი",
+									"შეკვეთა",
+									"ფასი სულ",
 									"სტატუსი"
 								];
 
-		var showOperatorsByColumns  =   [0,0,0,0,0,0,0,0]; 
-		var selectors               =   [0,0,0,0,0,0,0,0]; 
+		var showOperatorsByColumns  =   [0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0]; 
 
-		var locked                  =   [0,0,0,0,0,0,0,0];
-		var lockable                =   [0,0,0,0,0,0,0,0];
+		var locked                  =   [0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0];
 
 		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
 		//KendoUI CLASS CONFIGS END
@@ -423,20 +463,27 @@
 	$(document).on('click','#upload_img',function(){
 		$("#upload_back_img").trigger('click');
 	});
-	function save_category(){
-		let params 			= new Object;
-		params.act 			= 'save_category';
-		params.id 			= $("#cat_id").val();
-		params.title_geo 	= $("#title_geo").val();
-		params.title_rus 	= $("#title_rus").val();
-		params.title_eng	= $("#title_eng").val();
+	function save_product(){
+		let params 				= new Object;
+		params.act 				= 'save_product';
+		params.id 				= $("#product_id").val();
+		params.title_geo 		= $("#title_geo").val();
+		params.title_rus 		= $("#title_rus").val();
+		params.title_eng		= $("#title_eng").val();
+
+		params.poduct_category 	= $("#poduct_category").val();
+		params.price 			= $("#price").val();
+		params.price_sale		= $("#price_sale").val();
+		params.ingredients_geo 	= $("#ingredients_geo").val();
+		params.ingredients_rus 	= $("#ingredients_rus").val();
+		params.ingredients_eng	= $("#ingredients_eng").val();
 		$.ajax({
 			url: aJaxURL,
 			type: "POST",
 			data: params,
 			dataType: "json",
 			success: function(data){
-				$("#product_categories").data("kendoGrid").dataSource.read();
+				$("#products").data("kendoGrid").dataSource.read();
 				$('#get_edit_page').dialog("close");
 			}
 		});

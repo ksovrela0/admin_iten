@@ -3699,8 +3699,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 }
 .badge {
 	display: inline-block;
-	padding: 0.25em 0.4em;
-	font-size: 75%;
+	padding: 8px!important;
+	font-size: 100%;
+	width: 145px;
 	font-weight: 700;
 	line-height: 1;
 	text-align: center;
@@ -50562,4 +50563,25 @@ input[type="search"]::-webkit-search-cancel-button {
 	height: 220px;
 	border: 1px solid #00000045;
 	padding: 5px;
+}
+.cat_status_1{
+	padding: 10px;
+	color:#fff;
+	background-color: #2dc100;
+	font-size: 16px;
+    font-weight: 700;
+}
+.cat_status_2{
+	padding: 10px;
+	color:#fff;
+	background-color: #cdc707;
+	font-size: 16px;
+    font-weight: 700;
+}
+.cat_status_3{
+	padding: 10px;
+	color:#fff;
+	background-color: #d35454;
+	font-size: 16px;
+    font-weight: 700;
 }

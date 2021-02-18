@@ -1,22 +1,38 @@
+<?php
+include('../db.php');
+GLOBAL $db;
+
+$db = new dbClass();
+$user_gr = $_SESSION['GRPID'];
+?>
 <div class="main-sidebar main-sidebar-sticky side-menu ps">
     <div class="sidemenu-logo"> <a class="main-logo" href="index.php"> <img src="assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo"> <img src="assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo"> <img src="assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo"> <img src="assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo"> </a> </div>
     <div class="main-sidebar-body">
         <ul class="nav">
-            <li class="nav-label">სტატისტიკა</li>
-            <li class="nav-item active"> <a class="nav-link" href="index.php"><i class="fe fe-airplay"></i><span class="sidemenu-label">მთავარი/სტატისტიკა</span></a> </li>
-            <li class="nav-label">შეკვეთები</li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">მიმდინარე შეკვეთები</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">შეკვეთების ისტორია</span></a> </li>
-            <li class="nav-label">ობიექტი</li>
-            <li class="nav-item"> <a class="nav-link" href="index.php?page=products"><i class="fe fe-database"></i><span class="sidemenu-label">კატალოგი</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="index.php?page=product_categories"><i class="fe fe-layers"></i><span class="sidemenu-label">პროდუქციის კატეგორიები</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-aperture"></i><span class="sidemenu-label">ბანერი</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-shopping-cart"></i><span class="sidemenu-label">სპეციალური შეთავაზებები</span></a> </li>
-            
-            <li class="nav-label">ფინანსები</li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">ფინანსური სტატისტიკა</span></a> </li>
-            <li class="nav-item"> <a class="nav-link" href="#"><i class="fe fe-database"></i><span class="sidemenu-label">ფინანსების მართვა</span></a> </li>
+            <?php
+                $menu_li;
+                $db->setQuery(" SELECT 		menu_detail.id,
+                                            menu_detail.icon,
+                                            menu_detail.name,
+                                            menu_detail.url
 
+                                FROM 		menu_detail
+                                JOIN 		group_pages ON group_pages.page_id = menu_detail.id
+
+                                WHERE 		menu_detail.actived = 1 AND group_pages.group_id = '$user_gr'
+                                ORDER BY 	menu_detail.position ASC");
+                $menu = $db->getResultArray();
+                foreach($menu['result'] AS $item){
+                    if($item[url] == '#'){
+                        $menu_li .= '<li class="nav-label">'.$item[name].'</li>';
+                    }
+                    else{
+                        $menu_li .= '<li class="nav-item"> <a class="nav-link" href="index.php?page='.$item[url].'">'.$item[icon].'<span class="sidemenu-label">'.$item[name].'</span></a> </li>';
+                    }
+                }
+                echo $menu_li;
+            ?>
+            
             
         </ul>
     </div>

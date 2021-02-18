@@ -13,9 +13,7 @@
       <!---Fontawesome css--> 
       <?php include('includes/functions.php'); ?>
       <meta http-equiv="imagetoolbar" content="no">
-      <style type="text/css">
-         <!-- input,textarea{-webkit-touch-callout:default;-webkit-user-select:auto;-khtml-user-select:auto;-moz-user-select:text;-ms-user-select:text;user-select:text} *{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:-moz-none;-ms-user-select:none;user-select:none} -->
-      </style>
+
       <style type="text/css" media="print">
          <!-- body{display:none} -->
       </style>
@@ -44,19 +42,13 @@
                <!-- Page Header --> 
                <div class="page-header">
                   <div>
-                     <h2 class="main-content-title tx-24 mg-b-5">Welcome To Dashboard</h2>
+                     <h2 class="main-content-title tx-24 mg-b-5">მოგესალმებით, Admin</h2>
                      <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Sales Dashboard</li>
+                        <li class="breadcrumb-item"><a href="#">მთავარი</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">სწრაფი სტატისტიკა</li>
                      </ol>
                   </div>
-                  <div class="d-flex">
-                     <div class="mr-2">
-                        <a class="btn ripple btn-outline-primary dropdown-toggle mb-0" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="fe fe-external-link"></i> Export <i class="fas fa-caret-down ml-1"></i> </a> 
-                        <div class="dropdown-menu tx-13"> <a class="dropdown-item" href="#"><i class="far fa-file-pdf mr-2"></i>Export as Pdf</a> <a class="dropdown-item" href="#"><i class="far fa-image mr-2"></i>Export as Image</a> <a class="dropdown-item" href="#"><i class="far fa-file-excel mr-2"></i>Export as Excel</a> </div>
-                     </div>
-                     <div class=""> <a href="#" class="btn ripple btn-secondary navresponsive-toggler mb-0" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> <i class="fe fe-filter mr-1"></i> Filter <i class="fas fa-caret-down ml-1"></i> </a> </div>
-                  </div>
+                  
                </div>
                <!-- End Page Header --> <!--Navbar--> 
                <div class="responsive-background">
@@ -459,16 +451,16 @@
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">Number Of Sales</p>
+                              <p class="mb-1 tx-inverse">გაყიდვების რაოდენობა</p>
                               <div class="ml-auto"> <i class="fas fa-chart-line fs-20 text-primary"></i> </div>
                            </div>
                            <div>
-                              <h3 class="dash-25">568</h3>
+                              <h3 class="dash-25">8</h3>
                            </div>
                            <div class="progress mb-1">
                               <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-70p" role="progressbar"></div>
                            </div>
-                           <div class="expansion-label d-flex"> <span class="text-muted">Last Month</span> <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.7%</span> </div>
+                           <div class="expansion-label d-flex"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.7%</span> </div>
                         </div>
                      </div>
                   </div>
@@ -476,16 +468,16 @@
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">New Revenue</p>
+                              <p class="mb-1 tx-inverse">შემოსავალი</p>
                               <div class="ml-auto"> <i class="fab fa-rev fs-20 text-secondary"></i> </div>
                            </div>
                            <div>
-                              <h3 class="dash-25">$12,897</h3>
+                              <h3 class="dash-25">589 GEL</h3>
                            </div>
                            <div class="progress mb-1">
                               <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
                            </div>
-                           <div class="expansion-label d-flex"> <span class="text-muted">Last Month</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>0.43%</span> </div>
+                           <div class="expansion-label d-flex"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>0.43%</span> </div>
                         </div>
                      </div>
                   </div>
@@ -493,16 +485,16 @@
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">Total Cost</p>
+                              <p class="mb-1 tx-inverse">ხელზე ასაღები</p>
                               <div class="ml-auto"> <i class="fas fa-dollar-sign fs-20 text-success"></i> </div>
                            </div>
                            <div>
-                              <h3 class="dash-25">$11,234</h3>
+                              <h3 class="dash-25">489 GEL</h3>
                            </div>
                            <div class="progress mb-1">
                               <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-50p bg-success" role="progressbar"></div>
                            </div>
-                           <div class="expansion-label d-flex text-muted"> <span class="text-muted">Last Month</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>1.44%</span> </div>
+                           <div class="expansion-label d-flex text-muted"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>1.44%</span> </div>
                         </div>
                      </div>
                   </div>
@@ -510,490 +502,135 @@
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">Profit By Sale</p>
+                              <p class="mb-1 tx-inverse">წინა თვესთან შედარებით</p>
                               <div class="ml-auto"> <i class="fas fa-signal fs-20 text-info"></i> </div>
                            </div>
                            <div>
-                              <h3 class="dash-25">$789</h3>
+                              <h3 class="dash-25" style="color: #2ee82b;">+215 GEL</h3>
                            </div>
                            <div class="progress mb-1">
                               <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-40p bg-info" role="progressbar"></div>
                            </div>
-                           <div class="expansion-label d-flex text-muted"> <span class="text-muted">Last Month</span> <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.9%</span> </div>
+                           <div class="expansion-label d-flex text-muted"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-up mr-1 text-success"></i>0.9%</span> </div>
                         </div>
                      </div>
                   </div>
                </div>
-               <!--End  Row --> <!-- Row --> 
-               <div class="row row-sm">
-                  <div class="col-sm-12 col-xl-8 col-lg-8">
-                     <div class="card custom-card overflow-hidden">
-                        <div class="card-body">
-                           <div class="card-option d-flex">
-                              <div>
-                                 <h6 class="card-title mb-1">Overview of Sales Win/Lost</h6>
-                                 <p class="text-muted card-sub-title">Comapred to last month sales.</p>
-                              </div>
-                              <div class="card-option-title ml-auto">
-                                 <div class="btn-group p-0"> <button class="btn btn-light btn-sm" type="button">Month</button> <button class="btn btn-outline-light btn-sm" type="button">Year</button> </div>
-                              </div>
-                           </div>
-                           <div>
-                              <div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;">
-                                 <div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                    <div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div>
-                                 </div>
-                                 <div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;">
-                                    <div style="position:absolute;width:200%;height:200%;left:0; top:0"></div>
-                                 </div>
-                              </div>
-                              <canvas id="sales" height="350" width="1044" class="chartjs-render-monitor" style="display: block; width: 1044px; height: 350px;"></canvas>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-12 col-xl-4 col-lg-4">
-                     <div class="card custom-card">
-                        <div class="card-body">
-                           <div>
-                              <h6 class="card-title mb-1">Cost BreakDown</h6>
-                              <p class="text-muted card-sub-title">Excepteur sint occaecat cupidatat non proident.</p>
-                           </div>
-                           <div class="row">
-                              <div class="col-6 col-md-6 text-center">
-                                 <div class="mb-2">
-                                    <span class="peity-donut" data-peity="{ &quot;fill&quot;: [&quot;#eb6f33&quot;, &quot;#77778e33&quot;], &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }" style="display: none;">4/7</span>
-                                    <svg class="peity" height="40" width="40">
-                                       <path d="M 20 0 A 20 20 0 1 1 11.322325217648839 38.01937735804839 L 13.925627652354187 32.61356415063387 A 14 14 0 1 0 20 6" data-value="4" fill="#eb6f33"></path>
-                                       <path d="M 11.322325217648839 38.01937735804839 A 20 20 0 0 1 19.999999999999996 0 L 19.999999999999996 6 A 14 14 0 0 0 13.925627652354187 32.61356415063387" data-value="3" fill="#77778e33"></path>
-                                    </svg>
-                                 </div>
-                                 <p class="mb-1 tx-inverse">Marketing</p>
-                                 <h4 class="mb-1"><span>$</span>67,927</h4>
-                                 <span class="text-muted fs-12"><i class="fas fa-caret-up mr-1 text-success"></i>54% last month</span> 
-                              </div>
-                              <div class="col-6 col-md-6 text-center">
-                                 <div class="mb-2">
-                                    <span class="peity-donut" data-peity="{ &quot;fill&quot;: [&quot;#01b8ff&quot;, &quot;#77778e33&quot;], &quot;innerRadius&quot;: 14, &quot;radius&quot;: 20 }" style="display: none;">2/7</span>
-                                    <svg class="peity" height="40" width="40">
-                                       <path d="M 20 0 A 20 20 0 0 1 39.498558243636474 24.450418679126287 L 33.64899077054553 23.1152930753884 A 14 14 0 0 0 20 6" data-value="2" fill="#01b8ff"></path>
-                                       <path d="M 39.498558243636474 24.450418679126287 A 20 20 0 1 1 19.999999999999996 0 L 19.999999999999996 6 A 14 14 0 1 0 33.64899077054553 23.1152930753884" data-value="5" fill="#77778e33"></path>
-                                    </svg>
-                                 </div>
-                                 <p class="mb-1 tx-inverse">Sales</p>
-                                 <h4 class="mb-1"><span>$</span>24,789</h4>
-                                 <span class="text-muted fs-12"><i class="fas fa-caret-down mr-1 text-danger"></i>33% last month</span> 
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="card custom-card">
-                        <div class="card-body">
-                           <div>
-                              <h6 class="card-title mb-1">Monthly Profits</h6>
-                              <p class="text-muted card-sub-title">Excepteur sint occaecat cupidatat non proident.</p>
-                           </div>
-                           <h3><span>$</span>22,534</h3>
-                           <div class="clearfix mb-3">
-                              <div class="clearfix"> <span class="float-left text-muted">This Month</span> <span class="float-right">75%</span> </div>
-                              <div class="progress mt-1">
-                                 <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-70p bg-primary" role="progressbar"></div>
-                              </div>
-                           </div>
-                           <div class="clearfix">
-                              <div class="clearfix"> <span class="float-left text-muted">Last Month</span> <span class="float-right">50%</span> </div>
-                              <div class="progress mt-1">
-                                 <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="50" class="progress-bar progress-bar-xs wd-50p bg-success" role="progressbar"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-               <!-- End Row --> <!-- Row --> 
-               <div class="row row-sm">
-                  <div class="col-sm-12 col-xl-4 col-lg-4">
-                     <div class="card custom-card">
-                        <div class="card-body">
-                           <div>
-                              <h6 class="card-title mb-1">Activity</h6>
-                              <p class="text-muted mb-0 card-sub-title">Nemo enim ipsam voluptatem fugit sequi nesciunt.</p>
-                           </div>
-                        </div>
-                        <div class="card-body">
-                           <div class="activity-block">
-                              <ul class="task-list">
-                                 <li>
-                                    <i class="task-icon bg-success"></i> 
-                                    <h6>Successful Purchase<small class="float-right text-muted tx-11">29 Oct 2019</small></h6>
-                                    <span class="text-muted tx-12">Order ID: #4567</span> 
-                                 </li>
-                                 <li>
-                                    <i class="task-icon bg-secondary"></i> 
-                                    <h6>New Registered Seller<small class="float-right text-muted tx-11">25 Oct 2019</small></h6>
-                                    <span class="text-muted tx-12">User ID: #8976</span> 
-                                 </li>
-                                 <li>
-                                    <i class="task-icon bg-primary"></i> 
-                                    <h6>Order Verification<small class="float-right text-muted tx-11">14 Oct 2019</small></h6>
-                                    <span class="text-muted tx-12">Order ID: #6290</span> 
-                                 </li>
-                                 <li>
-                                    <i class="task-icon bg-info"></i> 
-                                    <h6>New Item Added<small class="float-right text-muted tx-11">02 Oct 2019</small></h6>
-                                    <span class="text-muted tx-12">Item ID: #0235</span> 
-                                 </li>
-                                 <li>
-                                    <i class="task-icon bg-danger"></i> 
-                                    <h6>Purchase Cancellation<small class="float-right text-muted tx-11">28 Sep 2019</small></h6>
-                                    <span class="text-muted tx-12">Order ID: #1905</span> 
-                                 </li>
-                                 <li class="mb-0">
-                                    <i class="task-icon bg-warning"></i> 
-                                    <h6>Overdue Shipments<small class="float-right text-muted tx-11">25 Sep 2019</small></h6>
-                                    <span class="text-muted tx-12">Order ID: #8902</span> 
-                                 </li>
-                              </ul>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-12 col-xl-4 col-lg-4">
-                     <div class="card custom-card">
-                        <div class="card-body">
-                           <div>
-                              <h6 class="card-title mb-1">Top Users Conversion Rate</h6>
-                              <p class="text-muted mb-0 card-sub-title">Nemo enim ipsam voluptatem fugit sequi nesciunt.</p>
-                           </div>
-                        </div>
-                        <div class="user-manager scroll-widget border-top mCustomScrollbar _mCS_1 mCS-autoHide" style="position: relative; overflow: visible;">
-                           <div id="mCSB_1" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0">
-                              <div id="mCSB_1_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                 <div class="table-responsive">
-                                    <table class="table mg-b-0">
-                                       <tbody>
-                                          <tr>
-                                             <td class="bd-t-0">
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/2.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td class="bd-t-0">
-                                                <h6 class="mg-b-0">Socrates Itumay</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager1</small> 
-                                             </td>
-                                             <td class="bd-t-0">
-                                                <h6 class="mg-b-0 font-weight-bold">34%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/3.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Reynante Labares</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager2</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">22%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/4.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Owen Bongcaras</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager3</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">18%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/5.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Mariane Galeon</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager4</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">15%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/6.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Joyce Chua</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager5</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">12%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/7.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Sonia Fraser</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager5</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">11%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/4.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Owen Bongcaras</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager3</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">18%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/5.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Mariane Galeon</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager4</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">15%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/4.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Owen Bongcaras</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager3</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">18%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                          <tr>
-                                             <td>
-                                                <div class="main-img-user"><img alt="avatar" src="assets/img/users/5.jpg" class="mCS_img_loaded"></div>
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0">Mariane Galeon</h6>
-                                                <small class="tx-11 tx-gray-500">Sales Manager4</small> 
-                                             </td>
-                                             <td>
-                                                <h6 class="mg-b-0 font-weight-bold">15%</h6>
-                                                <small class="tx-11 tx-gray-500">Conversion Rate</small> 
-                                             </td>
-                                          </tr>
-                                       </tbody>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                           <div id="mCSB_1_scrollbar_vertical" class="mCSB_scrollTools mCSB_1_scrollbar mCS-minimal mCSB_scrollTools_vertical" style="display: block;">
-                              <div class="mCSB_draggerContainer">
-                                 <div id="mCSB_1_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; display: block; height: 252px; max-height: 350px; top: 0px;">
-                                    <div class="mCSB_dragger_bar" style="line-height: 50px;"></div>
-                                 </div>
-                                 <div class="mCSB_draggerRail"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-sm-12 col-xl-4 col-lg-4">
-                     <div class="card custom-card">
-                        <div class="card-body">
-                           <div>
-                              <h6 class="card-title mb-1">Countrywise Sales</h6>
-                              <p class="text-muted mb-0 card-sub-title">Nemo enim ipsam voluptatem fugit sequi nesciunt.</p>
-                           </div>
-                        </div>
-                        <div class="country-sales scroll-widget bd-t mCustomScrollbar _mCS_2 mCS-autoHide" style="position: relative; overflow: visible;">
-                           <div id="mCSB_2" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" tabindex="0" style="max-height: none;">
-                              <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                                 <div class="list-group">
-                                    <div class="list-group-item  d-flex border-right-0 border-left-0 border-top-0">
-                                       <i class="flag-icon flag-icon-us flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">United States</p>
-                                       <span class="ml-auto font-weight-bold">$12,897</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-nl flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Netherlands</p>
-                                       <span class="ml-auto font-weight-bold">$11,789</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-gb flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">United Kingdom</p>
-                                       <span class="ml-auto font-weight-bold">$10,234</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-ca flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Canada</p>
-                                       <span class="ml-auto font-weight-bold">$9,104</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-au flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Australia</p>
-                                       <span class="ml-auto font-weight-bold">$16,205</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-si flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Slovenia</p>
-                                       <span class="ml-auto font-weight-bold">$18,165</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0 rounded-0">
-                                       <i class="flag-icon flag-icon-de flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Denmark</p>
-                                       <span class="ml-auto font-weight-bold">$19,765</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-si flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Slovenia</p>
-                                       <span class="ml-auto font-weight-bold">$18,165</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0 rounded-0">
-                                       <i class="flag-icon flag-icon-de flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Denmark</p>
-                                       <span class="ml-auto font-weight-bold">$19,765</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0">
-                                       <i class="flag-icon flag-icon-si flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Slovenia</p>
-                                       <span class="ml-auto font-weight-bold">$18,165</span> 
-                                    </div>
-                                    <div class="list-group-item d-flex border-right-0 border-left-0 rounded-0">
-                                       <i class="flag-icon flag-icon-de flag-icon-squared"></i> 
-                                       <p class="ml-3 mb-0">Denmark</p>
-                                       <span class="ml-auto font-weight-bold">$19,765</span> 
-                                    </div>
-                                 </div>
-                              </div>
-                           </div>
-                           <div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-minimal mCSB_scrollTools_vertical" style="display: block;">
-                              <div class="mCSB_draggerContainer">
-                                 <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 50px; display: block; height: 257px; max-height: 350px; top: 0px;">
-                                    <div class="mCSB_dragger_bar" style="line-height: 50px;"></div>
-                                 </div>
-                                 <div class="mCSB_draggerRail"></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+               
                <!-- End Row --> <!-- Row--> 
                <div class="row">
                   <div class="col-sm-12 col-xl-12 col-lg-12">
                      <div class="card custom-card">
                         <div class="card-body">
                            <div>
-                              <h6 class="card-title mb-1">Product Summary</h6>
-                              <p class="text-muted card-sub-title">Nemo enim ipsam voluptatem fugit sequi nesciunt.</p>
+                              <h6 class="card-title mb-1">გაყიდული პროდუქციის სტატისტიკა</h6>
+                              <p class="text-muted card-sub-title">*ობიექტისთვის</p>
                            </div>
                            <div class="table-responsive">
                               <table class="table table-bordered text-nowrap mb-0">
                                  <thead>
                                     <tr>
                                        <th>#No</th>
-                                       <th>Client Name</th>
-                                       <th>Product ID</th>
-                                       <th>Product</th>
-                                       <th>Product Cost</th>
-                                       <th>Payment Mode</th>
-                                       <th>Status</th>
+                                       <th>პროდ.დასახელება</th>
+                                       <th>პროდ.კატეგორია</th>
+                                       <th>პროდ.ფასი</th>
+                                       <th>გაყიდვეების რაოდენობა</th>
+                                       <th>საერთო ჯამი</th>
+                                       <th>შეუსრ.შეკვეთები</th>
                                     </tr>
                                  </thead>
                                  <tbody>
                                     <tr>
-                                       <td>#01</td>
-                                       <td>Sean Black</td>
-                                       <td>PRO12345</td>
-                                       <td>Mi LED Smart TV 4A 80</td>
-                                       <td>$14,500</td>
-                                       <td>Online Payment</td>
-                                       <td><span class="badge badge-success">Delivered</span></td>
+                                       <td>1</td>
+                                       <td>იმერული ხაჭაპური</td>
+                                       <td>ცომეული</td>
+                                       <td>15 GEL</td>
+                                       <td>100</td>
+                                       <td>1500 GEL</td>
+                                       <td>15</td>
                                     </tr>
                                     <tr>
-                                       <td>#02</td>
-                                       <td>Evan Rees</td>
-                                       <td>PRO8765</td>
-                                       <td>Thomson R9 122cm (48 inch) Full HD LED TV </td>
-                                       <td>$30,000</td>
-                                       <td>Cash on delivered</td>
-                                       <td><span class="badge badge-primary">Add Cart</span></td>
+                                       <td>2</td>
+                                       <td>ხინკალი</td>
+                                       <td>ხინკალი</td>
+                                       <td>1 GEL</td>
+                                       <td>1000</td>
+                                       <td>1000 GEL</td>
+                                       <td>10</td>
                                     </tr>
                                     <tr>
-                                       <td>#03</td>
-                                       <td>David Wallace</td>
-                                       <td>PRO54321</td>
-                                       <td>Vu 80cm (32 inch) HD Ready LED TV</td>
-                                       <td>$13,200</td>
-                                       <td>Online Payment</td>
-                                       <td><span class="badge badge-secondary">Pending</span></td>
+                                       <td>3</td>
+                                       <td>პიცა მარგარიტა</td>
+                                       <td>პიცა</td>
+                                       <td>10 GEL</td>
+                                       <td>500</td>
+                                       <td>5000 GEL</td>
+                                       <td>19</td>
+                                    </tr>
+                                 </tbody>
+                              </table>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-sm-12 col-xl-12 col-lg-12">
+                     <div class="card custom-card">
+                        <div class="card-body">
+                           <div>
+                              <h6 class="card-title mb-1">კურიერის სტატისტიკა</h6>
+                              <p class="text-muted card-sub-title">*ობიექტისთვის</p>
+                           </div>
+                           <div class="table-responsive">
+                              <table class="table table-bordered text-nowrap mb-0">
+                                 <thead>
+                                    <tr>
+                                       <th>#No</th>
+                                       <th>სახელი</th>
+                                       <th>გვარი</th>
+                                       <th>შესრულებული შეკვეთა</th>
+                                       <th>შეუსრულებელი შეკვეთა</th>
+                                       <th>მიტანის საშუალო დრო</th>
+                                       <th>ხშირად მიტანილი პროდუქტი</th>
+                                    </tr>
+                                 </thead>
+                                 <tbody>
+                                    <tr>
+                                       <td>1</td>
+                                       <td>გიგი</td>
+                                       <td>ანთიძე</td>
+                                       <td>15</td>
+                                       <td>0</td>
+                                       <td>5 წუთი</td>
+                                       <td>პიცა</td>
                                     </tr>
                                     <tr>
-                                       <td>#04</td>
-                                       <td>Julia Bower</td>
-                                       <td>PRO97654</td>
-                                       <td>Micromax 81cm (32 inch) HD Ready LED TV</td>
-                                       <td>$15,100</td>
-                                       <td>Cash on delivered</td>
-                                       <td><span class="badge badge-info">Delivering</span></td>
+                                       <td>2</td>
+                                       <td>ნინი</td>
+                                       <td>ჭყონია</td>
+                                       <td>10</td>
+                                       <td>2</td>
+                                       <td>10 წუთი</td>
+                                       <td>ხინკალი</td>
                                     </tr>
                                     <tr>
-                                       <td>#05</td>
-                                       <td>Kevin James</td>
-                                       <td>PRO4532</td>
-                                       <td>HP 200 Mouse &amp; Wireless Laptop Keyboard </td>
-                                       <td>$5,987</td>
-                                       <td>Online Payment</td>
-                                       <td><span class="badge badge-danger">Shipped</span></td>
+                                       <td>3</td>
+                                       <td>საბა</td>
+                                       <td>შონია</td>
+                                       <td>5</td>
+                                       <td>1</td>
+                                       <td>15 წუთი</td>
+                                       <td>ხაჭაპური</td>
                                     </tr>
                                     <tr>
-                                       <td>#06</td>
-                                       <td>Theresa Wright</td>
-                                       <td>PRO6789</td>
-                                       <td>Digisol DG-HR3400 Router </td>
-                                       <td>$11,987</td>
-                                       <td>Cash on delivered</td>
-                                       <td><span class="badge badge-secondary">Delivering</span></td>
-                                    </tr>
-                                    <tr>
-                                       <td>#07</td>
-                                       <td>Sebastian Black</td>
-                                       <td>PRO4567</td>
-                                       <td>Dell WM118 Wireless Optical Mouse</td>
-                                       <td>$4,700</td>
-                                       <td>Online Payment</td>
-                                       <td><span class="badge badge-info">Add to Cart</span></td>
-                                    </tr>
-                                    <tr>
-                                       <td>#08</td>
-                                       <td>Kevin Glover</td>
-                                       <td>PRO32156</td>
-                                       <td>Dell 16 inch Laptop Backpack </td>
-                                       <td>$678</td>
-                                       <td>Cash On delivered</td>
-                                       <td><span class="badge badge-success">Delivered</span></td>
+                                       <td>4</td>
+                                       <td>ნიკა</td>
+                                       <td>ქარდავა</td>
+                                       <td>2</td>
+                                       <td>0</td>
+                                       <td>20 წუთი</td>
+                                       <td>კანჭი</td>
                                     </tr>
                                  </tbody>
                               </table>
@@ -1062,7 +699,7 @@
          <div class="main-footer text-center">
             <div class="container">
                <div class="row">
-                  <div class="col-md-12"> <span>Copyright © 2019 <a href="#">Dashlead</a>. Designed by <a href="https://www.spruko.com/">Spruko</a> All rights reserved.</span> </div>
+                  <div class="col-md-12"> <span>Copyright © 2021 <a href="#">ITEN.GE</a>.</span> </div>
                </div>
             </div>
          </div>
