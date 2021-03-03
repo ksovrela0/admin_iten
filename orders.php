@@ -165,6 +165,9 @@
 	.chosen-container {
 		width: 95% !important;
 	}
+	.badge{
+		width: 100%!important;
+	}
 	</style>
 	<!--[if gte IE 5]><frame></frame><![endif]-->
 	<script src="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/ionicons.z18qlu2u.js" data-resources-url="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/" data-namespace="ionicons"></script>
@@ -202,7 +205,35 @@
 				<!-- End Page Header -->
 				<!-- Row -->
 				<div class="row">
-					<div id="orders"></div>
+					<?php
+						
+						if(isMobile()){
+							echo '
+							
+							<div class="col-sm-6 col-xl-3 col-lg-6">
+								<div class="card custom-card">
+									<div class="card-body dash1">
+									<div class="d-flex">
+										<p class="mb-1 tx-inverse">შესრულებული <?php echo $word; ?> რ-ბა</p>
+										<div class="ml-auto"> <i class="fab fa-rev fs-20 text-secondary"></i> </div>
+									</div>
+									<div>
+										<h3 class="dash-25">27</h3>
+									</div>
+									<div class="progress mb-1">
+										<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
+									</div>
+									<div class="expansion-label d-flex"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>0.43%</span> </div>
+									</div>
+								</div>
+							</div>
+							';
+						}
+						else{
+							echo '<div id="orders"></div>';
+						}
+					?>
+					
 				</div>
 				<!-- End Row -->
 			</div>
@@ -392,13 +423,14 @@
 		var actions         = 	'';
 		var editType        =   "popup"; // Two types "popup" and "inline"
 		var itemPerPage     = 	20;
-		var columnsCount    =	6;
+		var columnsCount    =	7;
 		var columnsSQL      = 	[
 									"id:string",
 									"photo:string",
 									"name:string",
 									"cty:string",
 									"comment:string",
+									"status:string",
 									"action:string"
 								];
 		var columnGeoNames  = 	[
@@ -407,14 +439,15 @@
 									"დასახელება",
 									"რაოდენობა",
 									"კომენტარი",
+									"სტატუსი",
 									"ქმედება"
 								];
 
-		var showOperatorsByColumns  =   [0,0,0,0,0,0]; 
-		var selectors               =   [0,0,0,0,0,0]; 
+		var showOperatorsByColumns  =   [0,0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0,0]; 
 
-		var locked                  =   [0,0,0,0,0,0];
-		var lockable                =   [0,0,0,0,0,0];
+		var locked                  =   [0,0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0,0];
 
 		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
 		//KendoUI CLASS CONFIGS END
@@ -462,6 +495,9 @@
 	}
 	$(document).on('click','#upload_img',function(){
 		$("#upload_back_img").trigger('click');
+	});
+	$(document).on('click','#change_product', function(){
+		alert('პროდუქციის ჩასანაცვლებლად საჭიროა კლიენტის მოთხოვნა');
 	});
 	function save_product(){
 		let params 				= new Object;

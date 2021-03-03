@@ -188,11 +188,16 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
         $db->setQuery(" SELECT      orders_detail.id,
-                                    CONCAT('<img src=\"http://new.iten.ge/itenge/',products.back_img,'\" style=\"height:100px;\">'),
+                                    CONCAT('<img src=\"http://new.iten.ge/itenge/',products.back_img,'\" style=\"height:70px;\">'),
                                     products.title_geo,
                                     CONCAT(orders_detail.portions,' ცალი'),
                                     orders_detail.comment,
-                                    '<div style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div>' AS 'action'
+                                    CASE
+                                        WHEN orders_detail.status = 1 THEN '<span class=\"badge badge-danger\">ვერ ვაწვდით</span>'
+                                        WHEN orders_detail.status = 2 THEN '<span class=\"badge badge-success\">ვაწვდით</span>'
+                                        WHEN orders_detail.status = 3 THEN '<span class=\"badge badge-secondary\">ჩამატებული</span>'
+                                    END AS 'status',
+                                    '<div style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div><div id=\"change_product\" style=\"background-color:#ffee1d;font-weight: bold;margin: 4px;border-radius:10px;padding:7px;cursor:pointer;\">ჩანაცვლება</div>' AS 'action'
                         FROM        orders_detail
                         LEFT JOIN	products ON products.id = orders_detail.product_id
                         WHERE       orders_detail.order_id = '$id' AND orders_detail.actived = 1");

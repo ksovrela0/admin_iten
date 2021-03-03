@@ -2,7 +2,18 @@
    <div class="container-fluid">
       <div class="main-header-left"> <a class="main-logo d-lg-none" href="index.html"> <img src="assets/img/brand/logo.png" class="header-brand-img desktop-logo" alt="logo"> <img src="assets/img/brand/icon.png" class="header-brand-img icon-logo" alt="logo"> <img src="assets/img/brand/logo-light.png" class="header-brand-img desktop-logo theme-logo" alt="logo"> <img src="assets/img/brand/icon-light.png" class="header-brand-img icon-logo theme-logo" alt="logo"> </a> <a class="main-header-menu-icon" href="" id="mainSidebarToggle"><span></span></a> </div>
       <div class="main-header-right">
-         <div class="dropdown d-md-flex"> <a class="nav-link icon full-screen-link"> <i class="fe fe-maximize fullscreen-button"></i> </a> </div>
+      <?php
+         $group_id = $_SESSION['GRPID'];
+         if($group_id == 3){
+            echo '<div class="dropdown d-md-flex"> <p style="margin:0!important;font-weight: 700;">ქეშ-ბალანასი: <span id="money_cash"> - 4.27</span></p>  </div>
+                  <div class="dropdown d-md-flex" style="margin-left:10px;"> <p style="margin:0!important;font-weight: 700;">ბალანასი: <span id="money_card"> + 24.75</span></p>  </div>';
+         }
+         if($group_id == 1){
+            echo '<div class="dropdown d-md-flex" style="margin-left:10px;"> <p style="margin:0!important;font-weight: 700;">ბალანასი: <span id="money_card"> + 24.75</span></p>  </div>';
+         }
+      ?>
+         
+         
          <div class="dropdown main-header-notification">
             <a class="nav-link icon" href=""> <i class="fe fe-bell"></i> <span class="pulse bg-danger"></span> </a> 
             <div class="dropdown-menu">
@@ -45,7 +56,6 @@
                <a class="dropdown-item border-top" href=""> <i class="fe fe-user"></i> My Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-edit"></i> Edit Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Account Settings </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Support </a> <a class="dropdown-item" href=""> <i class="fe fe-compass"></i> Activity </a> <a class="dropdown-item" href="index.php?act=sign_out"> <i class="fe fe-power"></i> Sign Out </a> 
             </div>
          </div>
-         <div class="dropdown d-md-flex header-settings"> <a href="#" class="nav-link icon" data-toggle="sidebar-right" data-target=".sidebar-right"> <i class="fe fe-align-right"></i> </a> </div>
       </div>
    </div>
 </div>

@@ -464,15 +464,23 @@
                         </div>
                      </div>
                   </div>
+                  <?php
+                     if($group_id == 3){
+                        $word = 'მიტანების';
+                     }
+                     else if($group_id == 1){
+                        $word = 'შეკვეთების';
+                     }
+                  ?>
                   <div class="col-sm-6 col-xl-3 col-lg-6">
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">შემოსავალი</p>
+                              <p class="mb-1 tx-inverse">შესრულებული <?php echo $word; ?> რ-ბა</p>
                               <div class="ml-auto"> <i class="fab fa-rev fs-20 text-secondary"></i> </div>
                            </div>
                            <div>
-                              <h3 class="dash-25">589 GEL</h3>
+                              <h3 class="dash-25">27</h3>
                            </div>
                            <div class="progress mb-1">
                               <div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
@@ -485,7 +493,7 @@
                      <div class="card custom-card">
                         <div class="card-body dash1">
                            <div class="d-flex">
-                              <p class="mb-1 tx-inverse">ხელზე ასაღები</p>
+                              <p class="mb-1 tx-inverse">შემოსავალი</p>
                               <div class="ml-auto"> <i class="fas fa-dollar-sign fs-20 text-success"></i> </div>
                            </div>
                            <div>
