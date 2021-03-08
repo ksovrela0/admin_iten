@@ -12,44 +12,26 @@ switch ($act){
         $data = array('page' => getPage());
     break;
     case 'get_edit_page':
-
-        $data = array('page' => getPage());
-    break;
-    case 'save_product':
         $id = $_REQUEST['id'];
-        $title_geo          = $_REQUEST['title_geo'];
-        $title_rus          = $_REQUEST['title_rus'];
-        $title_eng          = $_REQUEST['title_eng'];
-        $poduct_category    = $_REQUEST['poduct_category'];
-        $price              = $_REQUEST['price'];
-        $price_sale         = $_REQUEST['price_sale'];
-        $ingredients_geo    = $_REQUEST['ingredients_geo'];
-        $ingredients_rus    = $_REQUEST['ingredients_rus'];
-        $ingredients_eng    = $_REQUEST['ingredients_eng'];
+        $data = array('page' => getPage(getObject($id)));
+    break;
+    case 'save_category':
+        $id = $_REQUEST['id'];
+        $title_geo = $_REQUEST['title_geo'];
+        $title_rus = $_REQUEST['title_rus'];
+        $title_eng = $_REQUEST['title_eng'];
         if($id == ''){
-            $db->setQuery(" INSERT INTO  products 
-                            SET          title_geo = '$title_geo',
-                                         title_rus = '$title_rus',
-                                         title_eng = '$title_eng',
-                                         cat_id = '$poduct_category',
-                                         price = '$price',
-                                         price_sale = '$price_sale',
-                                         ingredients_geo = '$ingredients_geo',
-                                         ingredients_rus = '$ingredients_rus',
-                                         ingredients_eng = '$ingredients_eng'");
+            $db->setQuery(" INSERT INTO  object_category 
+                            SET          name_geo = '$title_geo',
+                                         name_rus = '$title_rus',
+                                         name_eng = '$title_eng'");
             $db->execQuery();
         }
         else{
-            $db->setQuery(" UPDATE  products 
-                            SET     title_geo = '$title_geo',
-                                    title_rus = '$title_rus',
-                                    title_eng = '$title_eng',
-                                    cat_id = '$poduct_category',
-                                    price = '$price',
-                                    price_sale = '$price_sale',
-                                    ingredients_geo = '$ingredients_geo',
-                                    ingredients_rus = '$ingredients_rus',
-                                    ingredients_eng = '$ingredients_eng'
+            $db->setQuery(" UPDATE  object_category 
+                            SET     name_geo = '$title_geo',
+                                    name_rus = '$title_rus',
+                                    name_eng = '$title_eng'
                             WHERE   id = '$id'");
             $db->execQuery();
         }
@@ -59,7 +41,7 @@ switch ($act){
         $ids = explode(',',$ids);
 
         foreach($ids AS $id){
-            $db->setQuery("UPDATE products SET actived = 0 WHERE id = '$id'");
+            $db->setQuery("UPDATE object_category SET actived = 0 WHERE id = '$id'");
             $db->execQuery();
         }
     break;
@@ -162,45 +144,46 @@ switch ($act){
         $columnCount = 		$_REQUEST['count'];
 		$cols[]      =      $_REQUEST['cols'];
 
-        $db->setQuery("SELECT       orders.id,
-                                    orders.datetime,
-                                    GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
-                                    CONCAT(orders.amount,' GEL') AS 'price',
-                                    CASE
-                                            WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">ახალი შეკვეთა</div>'
-                                            WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">მზადების პროცესში</div>'
-                                            WHEN orders.status = 3 THEN '<div class=\"cat_status_3\">გაუქმებული</div>'
-                                    END AS 'status'
-
-                        FROM        orders
-                        LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
-                        LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE 	    orders.actived = 1
-                        GROUP BY    orders.id");
+            $db->setQuery(" SELECT  objects.id,
+                                    CONCAT('<img src=\"http://new.iten.ge/assets/media/images/obj/',objects.logo,'\" style=\"height:150px;\">'),
+                                    objects.name_geo,
+                                    objects.name_rus,
+                                    objects.name_eng,
+                                    object_category.name_geo AS 'cat_name',
+                                    objects.phone,
+                                    objects.address,
+                                    COUNT(object_branches.id)
+                        FROM        objects
+                        LEFT JOIN   object_category ON object_category.id = objects.object_cat_id
+                        LEFT JOIN   object_branches ON object_branches.object_id = objects.id
+                        ORDER BY    objects.id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
     break;
-    case 'get_list_detail':
-        $id          =      $_REQUEST['order_id'];
-		
+    case 'get_list_branches':
+        $id          =      $_REQUEST['hidden'];
+		$obj_id      =      $_REQUEST['obj_id'];
         $columnCount = 		$_REQUEST['count'];
 		$cols[]      =      $_REQUEST['cols'];
 
-        $db->setQuery(" SELECT      orders_detail.id,
-                                    CONCAT('<img src=\"http://new.iten.ge/',products.back_img,'\" style=\"height:70px;\">'),
-                                    products.title_geo,
-                                    CONCAT(orders_detail.portions,' ცალი'),
-                                    orders_detail.comment,
+            $db->setQuery(" SELECT  object_branches.id,
+                                    object_branches.name_geo,
+                                    object_branches.name_rus,
+                                    object_branches.name_eng,
+                                    CONCAT(object_branches.start_work,' - ',object_branches.end_work) AS 'work_h',
+                                    object_branches.phone,
+                                    object_branches.address,
                                     CASE
-                                        WHEN orders_detail.status = 1 THEN '<span class=\"badge badge-danger\">ვერ ვაწვდით</span>'
-                                        WHEN orders_detail.status = 2 THEN '<span class=\"badge badge-success\">ვაწვდით</span>'
-                                        WHEN orders_detail.status = 3 THEN '<span class=\"badge badge-secondary\">ჩამატებული</span>'
-                                    END AS 'status',
-                                    '<div style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div><div id=\"change_product\" style=\"background-color:#ffee1d;font-weight: bold;margin: 4px;border-radius:10px;padding:7px;cursor:pointer;\">ჩანაცვლება</div>' AS 'action'
-                        FROM        orders_detail
-                        LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE       orders_detail.order_id = '$id' AND orders_detail.actived = 1");
+                                        WHEN object_branches.size = 1 THEN 'პატარა'
+                                        WHEN object_branches.size = 2 THEN 'საშუალო'
+                                        WHEN object_branches.size = 3 THEN 'დიდი'
+                                    END AS 'size',
+                                    IF(object_branches.free_delivery = 1,'კი','არა')
+                        FROM        object_branches
+                        LEFT JOIN   objects ON object_branches.object_id = objects.id
+                        WHERE       object_branches.object_id = '$obj_id'
+                        ORDER BY    objects.id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
@@ -217,10 +200,47 @@ function getPage($res = ''){
     <fieldset class="fieldset">
         <legend>ინფორმაცია</legend>
         <div class="row">
-            <div id="orders_detail"></div>
+            <div class="col-sm-4">
+                <label>დასახელება GEO</label>
+                <input value="'.$res[name_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>დასახელება RUS</label>
+                <input value="'.$res[name_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>დასახელება ENG</label>
+                <input value="'.$res[name_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>კატეგორია</label>
+                <select id="poduct_category">'.get_cat_1($res[category]).'</select>
+            </div>
+            <div class="col-sm-4">
+                <label>ტელეფონი</label>
+                <input value="'.$res[phone].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="phone" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>მისამართი</label>
+                <input value="'.$res[address].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="address" class="idle" autocomplete="off">
+            </div>
         </div>
     </fieldset>
-    
+    <fieldset class="fieldset">
+        <legend>ფილიალები</legend>
+        <div class="col-sm-12">
+            <div id="object_branches"></div>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>სურათი</legend>
+        <div class="dialog_image">
+            <img src="http://new.iten.ge/assets/media/images/obj/'.$res[logo].'">
+        </div>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
+    </fieldset>
+    <input type="hidden" id="product_id" value="'.$res[id].'">
     ';
 
     return $data;
@@ -229,8 +249,8 @@ function get_cat_1($id){
     GLOBAL $db;
     $data = '';
     $db->setQuery("SELECT   id,
-                            title_geo AS 'name'
-                    FROM    product_categories
+                            name_geo AS 'name'
+                    FROM    object_category
                     WHERE   actived = 1");
     $cats = $db->getResultArray();
     foreach($cats['result'] AS $cat){
@@ -245,23 +265,20 @@ function get_cat_1($id){
 
     return $data;
 }
-function getProduct($id){
+function getObject($id){
     GLOBAL $db;
 
-    $db->setQuery(" SELECT  products.id,
-                            products.back_img,
-                            products.title_geo,
-                            products.title_rus,
-                            products.title_eng,
-                            product_categories.id AS 'category',
-                            products.price_sale,
-                            products.ingredients_geo,
-                            products.ingredients_rus,
-                            products.ingredients_eng,
-                            products.price
-                    FROM    products
-                    LEFT JOIN product_categories ON product_categories.id = products.cat_id
-                    WHERE   products.id = '$id' AND products.actived = 1");
+    $db->setQuery(" SELECT  id,
+                            logo,
+                            name_geo,
+                            name_rus,
+                            name_eng,
+                            object_cat_id AS 'category',
+                            phone,
+                            address
+
+                    FROM    objects
+                    WHERE   id = '$id'");
     $result = $db->getResultArray();
 
     return $result['result'][0];

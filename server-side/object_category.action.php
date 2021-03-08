@@ -21,17 +21,17 @@ switch ($act){
         $title_rus = $_REQUEST['title_rus'];
         $title_eng = $_REQUEST['title_eng'];
         if($id == ''){
-            $db->setQuery(" INSERT INTO  product_categories 
-                            SET          title_geo = '$title_geo',
-                                         title_rus = '$title_rus',
-                                         title_eng = '$title_eng'");
+            $db->setQuery(" INSERT INTO  object_category 
+                            SET          name_geo = '$title_geo',
+                                         name_rus = '$title_rus',
+                                         name_eng = '$title_eng'");
             $db->execQuery();
         }
         else{
-            $db->setQuery(" UPDATE  product_categories 
-                            SET     title_geo = '$title_geo',
-                                    title_rus = '$title_rus',
-                                    title_eng = '$title_eng'
+            $db->setQuery(" UPDATE  object_category 
+                            SET     name_geo = '$title_geo',
+                                    name_rus = '$title_rus',
+                                    name_eng = '$title_eng'
                             WHERE   id = '$id'");
             $db->execQuery();
         }
@@ -41,7 +41,7 @@ switch ($act){
         $ids = explode(',',$ids);
 
         foreach($ids AS $id){
-            $db->setQuery("UPDATE product_categories SET actived = 0 WHERE id = '$id'");
+            $db->setQuery("UPDATE object_category SET actived = 0 WHERE id = '$id'");
             $db->execQuery();
         }
     break;
@@ -145,18 +145,20 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
         $db->setQuery(" SELECT  id,
-                                CONCAT('<img src=\"http://new.iten.ge/',back_img,'\" style=\"height:150px;\">'),
-                                title_geo,
-                                title_rus,
-                                title_eng,
-                                CONCAT(position,' თანმიმდევრობა'),
+                                CONCAT('<img src=\"http://new.iten.ge/assets/media/images/category/',image,'\" style=\"height:150px;\">'),
+                                name_geo,
+                                name_rus,
+                                name_eng,
                                 CASE
-                                    WHEN status_id = 1 THEN '<div class=\"cat_status_1\">აქტიური</div>'
-                                    WHEN status_id = 2 THEN '<div class=\"cat_status_2\">მოდერაციაში</div>'
-                                    WHEN status_id = 3 THEN '<div class=\"cat_status_3\">გამორთული</div>'
+                                    WHEN size = 1 THEN 'პატარა'
+                                    WHEN size = 2 THEN 'საშუალო'
+                                    WHEN size = 3 THEN 'დიდი'
+                                END AS 'size',
+                                CASE
+                                    WHEN actived = 1 THEN '<div class=\"cat_status_1\">აქტიური</div>'
+                                    WHEN actived = 0 THEN '<div class=\"cat_status_3\">გამორთული</div>'
                                 END AS `status`
-                        FROM    product_categories
-                        WHERE   actived = 1
+                        FROM    object_category
                         ORDER BY id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -176,22 +178,22 @@ function getPage($res = ''){
         <div class="row">
             <div class="col-sm-4">
                 <label>კატეგორია GEO</label>
-                <input value="'.$res[title_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
+                <input value="'.$res[name_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo" class="idle" autocomplete="off">
             </div>
             <div class="col-sm-4">
                 <label>კატეგორია RUS</label>
-                <input value="'.$res[title_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
+                <input value="'.$res[name_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus" class="idle" autocomplete="off">
             </div>
             <div class="col-sm-4">
                 <label>კატეგორია ENG</label>
-                <input value="'.$res[title_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
+                <input value="'.$res[name_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng" class="idle" autocomplete="off">
             </div>
         </div>
     </fieldset>
     <fieldset class="fieldset">
         <legend>სურათი</legend>
         <div class="dialog_image">
-            <img src="http://new.iten.ge/'.$res[back_img].'">
+            <img src="http://new.iten.ge/assets/media/images/category/'.$res[image].'">
         </div>
         <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
@@ -205,13 +207,13 @@ function getCategories($id){
     GLOBAL $db;
 
     $db->setQuery(" SELECT  id,
-                            back_img,
-                            title_geo,
-                            title_rus,
-                            title_eng
+                            image,
+                            name_geo,
+                            name_rus,
+                            name_eng
 
-                    FROM    product_categories
-                    WHERE   id = '$id' AND actived = 1");
+                    FROM    object_category
+                    WHERE   id = '$id'");
     $result = $db->getResultArray();
 
     return $result['result'][0];

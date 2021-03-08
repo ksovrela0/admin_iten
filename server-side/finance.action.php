@@ -239,7 +239,7 @@ function getPage($res = ''){
     <fieldset class="fieldset">
         <legend>სურათი</legend>
         <div class="dialog_image">
-            <img src="http://new.iten.ge/itenge/'.$res[back_img].'">
+            <img src="http://new.iten.ge/'.$res[back_img].'">
         </div>
         <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">

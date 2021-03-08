@@ -3675,6 +3675,9 @@ input[type="submit"].btn-block, input[type="reset"].btn-block, input[type="butto
 	outline: 0;
 	box-shadow: 0 0 0 0.2rem rgba(135, 96, 251, 0.25);
 }
+.chosen-container {
+	width: 95%!important;
+}
 .page-item.active .page-link {
 	color: #fff;
 	background-color: #8760fb;
