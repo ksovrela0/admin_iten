@@ -36,7 +36,8 @@ switch ($act){
                                          price_sale = '$price_sale',
                                          ingredients_geo = '$ingredients_geo',
                                          ingredients_rus = '$ingredients_rus',
-                                         ingredients_eng = '$ingredients_eng'");
+                                         ingredients_eng = '$ingredients_eng',
+                                         user_id = '$user_id'");
             $db->execQuery();
         }
         else{
@@ -49,7 +50,8 @@ switch ($act){
                                     price_sale = '$price_sale',
                                     ingredients_geo = '$ingredients_geo',
                                     ingredients_rus = '$ingredients_rus',
-                                    ingredients_eng = '$ingredients_eng'
+                                    ingredients_eng = '$ingredients_eng',
+                                    user_id = '$user_id'
                             WHERE   id = '$id'");
             $db->execQuery();
         }
@@ -163,7 +165,7 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
         $db->setQuery(" SELECT  products.id,
-                                CONCAT('<img src=\"http://new.iten.ge/',products.back_img,'\" style=\"height:150px;\">'),
+                                CONCAT('<img src=\"',products.back_img,'\" style=\"height:150px;\">'),
                                 products.title_geo,
                                 products.title_rus,
                                 products.title_eng,
@@ -176,7 +178,7 @@ switch ($act){
                                 END AS `status`
                         FROM    products
                         LEFT JOIN product_categories ON product_categories.id = products.cat_id
-                        WHERE   products.actived = 1
+                        WHERE   products.actived = 1 AND products.user_id = '$user_id'
                         ORDER BY products.id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -238,9 +240,9 @@ function getPage($res = ''){
     <fieldset class="fieldset">
         <legend>სურათი</legend>
         <div class="dialog_image">
-            <img src="http://new.iten.ge/'.$res[back_img].'">
+            <img src="'.$res[back_img].'">
         </div>
-        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შეცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
     </fieldset>
     <input type="hidden" id="product_id" value="'.$res[id].'">

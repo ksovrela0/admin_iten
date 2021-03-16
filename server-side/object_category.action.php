@@ -195,7 +195,7 @@ function getPage($res = ''){
         <div class="dialog_image">
             <img src="http://new.iten.ge/assets/media/images/category/'.$res[image].'">
         </div>
-        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შეცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
     </fieldset>
     <input type="hidden" id="cat_id" value="'.$res[id].'">

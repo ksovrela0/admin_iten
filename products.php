@@ -429,6 +429,54 @@
 	$(document).on('click','#upload_img',function(){
 		$("#upload_back_img").trigger('click');
 	});
+	$(document).on('change','#upload_back_img', function(e){
+
+		//submit the form here
+		//var name = $(".fileupchat").val();
+		var file_data = $('#upload_back_img').prop('files')[0];
+		var fileName = e.target.files[0].name;
+		var fileNameN = Math.ceil(Math.random()*99999999999);
+		var fileSize = e.target.files[0].size;
+		var fileExt = $(this).val().split('.').pop().toLowerCase();
+		var form_data = new FormData();
+		var product_id = $("#product_id").val();
+		form_data.append('act', 'upload_product_img');
+		form_data.append('file', file_data);
+		form_data.append('ext', fileExt);
+		form_data.append('original', fileName);
+		form_data.append('newName', fileNameN);
+		form_data.append('product_id', product_id);
+
+		var fileExtension = ['jpg'];
+		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
+			$("#upload_back_img").val('');
+		}
+		else {
+
+			if(fileSize>20971520) {
+				alert("შეცდომა! ფაილის ზომა 20MB-ზე მეტია!!!");
+				$(".upload_back_img").val('');
+			}
+			else{
+				$.ajax({
+				url: 'up.php', // point to server-side PHP script
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				success: function (data) {
+					//$("#upload_back_img").val(data);
+					console.log(data)
+					$('.dialog_image').html('<img src="'+data+'"/>');
+				}
+				});
+			}
+
+		}
+	});
 	function save_product(){
 		let params 				= new Object;
 		params.act 				= 'save_product';

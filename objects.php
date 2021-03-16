@@ -343,6 +343,7 @@
 			dataType: "json",
 			success: function(data){
 				$('#get_edit_page').html(data.page);
+				$("#poduct_category").chosen();
 				$("#get_edit_page").dialog({
 					resizable: false,
 					height: "auto",
@@ -477,11 +478,16 @@
 	});
 	function save_category(){
 		let params 			= new Object;
-		params.act 			= 'save_category';
-		params.id 			= $("#cat_id").val();
+		params.act 			= 'save_object';
+		params.id 			= $("#object_id").val();
 		params.title_geo 	= $("#title_geo").val();
 		params.title_rus 	= $("#title_rus").val();
 		params.title_eng	= $("#title_eng").val();
+		params.obj_cat 		= $("#poduct_category").val();
+		params.phone 		= $("#phone").val();
+		params.address 		= $("#address").val();
+		params.username 	= $("#username").val();
+		params.password 	= $("#password").val();
 		$.ajax({
 			url: aJaxURL,
 			type: "POST",

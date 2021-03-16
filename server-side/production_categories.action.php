@@ -24,14 +24,16 @@ switch ($act){
             $db->setQuery(" INSERT INTO  product_categories 
                             SET          title_geo = '$title_geo',
                                          title_rus = '$title_rus',
-                                         title_eng = '$title_eng'");
+                                         title_eng = '$title_eng',
+                                         user_id = '$user_id'");
             $db->execQuery();
         }
         else{
             $db->setQuery(" UPDATE  product_categories 
                             SET     title_geo = '$title_geo',
                                     title_rus = '$title_rus',
-                                    title_eng = '$title_eng'
+                                    title_eng = '$title_eng',
+                                    user_id = '$user_id'
                             WHERE   id = '$id'");
             $db->execQuery();
         }
@@ -156,7 +158,7 @@ switch ($act){
                                     WHEN status_id = 3 THEN '<div class=\"cat_status_3\">გამორთული</div>'
                                 END AS `status`
                         FROM    product_categories
-                        WHERE   actived = 1
+                        WHERE   actived = 1 AND user_id = '$user_id'
                         ORDER BY id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -193,7 +195,7 @@ function getPage($res = ''){
         <div class="dialog_image">
             <img src="http://new.iten.ge/'.$res[back_img].'">
         </div>
-        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შეცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
     </fieldset>
     <input type="hidden" id="cat_id" value="'.$res[id].'">

@@ -15,25 +15,60 @@ switch ($act){
         $id = $_REQUEST['id'];
         $data = array('page' => getPage(getObject($id)));
     break;
-    case 'save_category':
+    case 'save_object':
         $id = $_REQUEST['id'];
         $title_geo = $_REQUEST['title_geo'];
         $title_rus = $_REQUEST['title_rus'];
         $title_eng = $_REQUEST['title_eng'];
+
+        $obj_cat = $_REQUEST['obj_cat'];
+        $phone = $_REQUEST['phone'];
+        $address = $_REQUEST['address'];
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+        
         if($id == ''){
-            $db->setQuery(" INSERT INTO  object_category 
-                            SET          name_geo = '$title_geo',
-                                         name_rus = '$title_rus',
-                                         name_eng = '$title_eng'");
+            $db->setQuery(" INSERT INTO  objects 
+                            SET     `name_geo` = \"$title_geo\",
+                                    `name_rus` = \"$title_rus\",
+                                    `name_eng` = \"$title_eng\",
+                                    `object_cat_Id` = '$obj_cat',
+                                    `phone` = '$phone',
+                                    `address` = '$address'");
+            $db->execQuery();
+
+            $db->setQuery("SELECT MAX(id) AS 'id' FROM objects");
+            $inserted_id = $db->getResultArray();
+            $inserted_id = $inserted_id['result'][0]['id'];
+            $password = md5($password);
+            $db->setQuery("INSERT INTO users SET username='$username', password = '$password', datetime=NOW(),group_id = 4,object_id = '$inserted_id'");
             $db->execQuery();
         }
         else{
-            $db->setQuery(" UPDATE  object_category 
-                            SET     name_geo = '$title_geo',
-                                    name_rus = '$title_rus',
-                                    name_eng = '$title_eng'
+            $db->setQuery(" UPDATE  objects 
+                            SET     `name_geo` = \"$title_geo\",
+                                    `name_rus` = \"$title_rus\",
+                                    `name_eng` = \"$title_eng\",
+                                    `object_cat_Id` = '$obj_cat',
+                                    `phone` = '$phone',
+                                    `address` = '$address'
                             WHERE   id = '$id'");
             $db->execQuery();
+
+            $db->setQuery(" SELECT  password
+                            FROM    users
+                            WHERE   object_id = '$id'");
+            $pass = $db->getResultArray();
+
+            if($pass['result'][0]['password'] != $password){
+                $password = md5($password);
+                $db->setQuery("UPDATE users SET username = '$username', password = '$password' WHERE object_id = '$id'");
+                $db->execQuery();
+            }
+            else{
+                $db->setQuery("UPDATE users SET username = '$username' WHERE object_id = '$id'");
+                $db->execQuery();
+            }
         }
     break;
     case 'disable':
@@ -156,6 +191,7 @@ switch ($act){
                         FROM        objects
                         LEFT JOIN   object_category ON object_category.id = objects.object_cat_id
                         LEFT JOIN   object_branches ON object_branches.object_id = objects.id
+                        GROUP BY 	objects.id
                         ORDER BY    objects.id DESC");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -224,6 +260,15 @@ function getPage($res = ''){
                 <label>მისამართი</label>
                 <input value="'.$res[address].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="address" class="idle" autocomplete="off">
             </div>
+
+            <div class="col-sm-4">
+                <label>username</label>
+                <input value="'.$res[username].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="username" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-4">
+                <label>პაროლი</label>
+                <input value="'.$res[password].'" data-nec="0" style="height: 18px; width: 95%;" type="password" id="password" class="idle" autocomplete="off">
+            </div>
         </div>
     </fieldset>
     <fieldset class="fieldset">
@@ -237,10 +282,10 @@ function getPage($res = ''){
         <div class="dialog_image">
             <img src="http://new.iten.ge/assets/media/images/obj/'.$res[logo].'">
         </div>
-        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შესცვლა</p>
+        <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შეცვლა</p>
         <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
     </fieldset>
-    <input type="hidden" id="product_id" value="'.$res[id].'">
+    <input type="hidden" id="object_id" value="'.$res[id].'">
     ';
 
     return $data;
@@ -268,17 +313,20 @@ function get_cat_1($id){
 function getObject($id){
     GLOBAL $db;
 
-    $db->setQuery(" SELECT  id,
-                            logo,
-                            name_geo,
-                            name_rus,
-                            name_eng,
-                            object_cat_id AS 'category',
-                            phone,
-                            address
+    $db->setQuery(" SELECT      objects.id,
+                                objects.logo,
+                                objects.name_geo,
+                                objects.name_rus,
+                                objects.name_eng,
+                                objects.object_cat_id AS 'category',
+                                objects.phone,
+                                objects.address,
+                                users.username,
+                                users.password
 
-                    FROM    objects
-                    WHERE   id = '$id'");
+                    FROM        objects
+                    LEFT JOIN   users ON users.object_id = objects.id
+                    WHERE       objects.id = '$id'");
     $result = $db->getResultArray();
 
     return $result['result'][0];
