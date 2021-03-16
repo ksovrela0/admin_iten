@@ -286,7 +286,7 @@ function getProduct($id){
                             products.price
                     FROM    products
                     LEFT JOIN product_categories ON product_categories.id = products.cat_id
-                    WHERE   products.id = '$id' AND products.actived = 1");
+                    WHERE   products.id = '$id' AND products.actived = 1 AND products.user_id = '$user_id'");
     $result = $db->getResultArray();
 
     return $result['result'][0];
