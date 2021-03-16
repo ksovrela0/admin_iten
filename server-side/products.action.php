@@ -256,7 +256,7 @@ function get_cat_1($id){
     $db->setQuery("SELECT   id,
                             title_geo AS 'name'
                     FROM    product_categories
-                    WHERE   actived = 1");
+                    WHERE   actived = 1 AND product_categories.user_id = '$user_id'");
     $cats = $db->getResultArray();
     foreach($cats['result'] AS $cat){
         if($cat[id] == $id){
@@ -286,7 +286,7 @@ function getProduct($id){
                             products.price
                     FROM    products
                     LEFT JOIN product_categories ON product_categories.id = products.cat_id
-                    WHERE   products.id = '$id' AND products.actived = 1 AND products.user_id = '$user_id'");
+                    WHERE   products.id = '$id' AND products.actived = 1");
     $result = $db->getResultArray();
 
     return $result['result'][0];
