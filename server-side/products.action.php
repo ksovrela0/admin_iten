@@ -253,6 +253,7 @@ function getPage($res = ''){
 function get_cat_1($id){
     GLOBAL $db;
     $data = '';
+    $user_id = $_SESSION['USERID'];
     $db->setQuery("SELECT   id,
                             title_geo AS 'name'
                     FROM    product_categories
