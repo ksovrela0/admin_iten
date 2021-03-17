@@ -447,7 +447,7 @@
 		form_data.append('newName', fileNameN);
 		form_data.append('product_id', product_id);
 
-		var fileExtension = ['jpg'];
+		var fileExtension = ['jpg','png','jpeg'];
 		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
 			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
 			$("#upload_back_img").val('');
