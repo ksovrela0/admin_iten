@@ -43,6 +43,25 @@ else if($act == 'upload_product_img'){
         }
     }
 }
+else if($act == 'upload_cat_img'){
+    $cat_id = $_REQUEST['cat_id'];
+    if (0 < $_FILES['file']['error']) {
+        echo 'Error: ' . $_FILES['file']['error'] . '<br>';
+    } else {
+        if(move_uploaded_file($_FILES['file']['tmp_name'], 'assets/media/images/menu/' . $new_name.'.'.$type))
+        {
 
+            $img = 'assets/media/images/menu/' . $new_name.'.'.$type;
+            $query = "UPDATE product_categories SET back_img='$img' WHERE id='$cat_id'";
+            $db->setQuery($query);
+            $db->execQuery();
+
+            echo $img;
+
+
+
+        }
+    }
+}
 
 ?>

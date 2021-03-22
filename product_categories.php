@@ -290,6 +290,7 @@
 	<!-- Jquery js-->
 	
 	<div class="main-navbar-backdrop"></div>
+	<div title="პროდუქციის ქვე-კატეგორია" id="get_sub_edit_page"></div>
 	<div title="პროდუქციის კატეგორია" id="get_edit_page">
 		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
 	</div>
@@ -327,6 +328,8 @@
 						}
 					}
 				});
+				var hidden = "&parent_id="+dItem.id;
+				LoadKendoTable_sub_category(hidden);
 			}
 		});
 	});
@@ -357,6 +360,33 @@
 			}
 		});
 	});
+	$(document).on('click','#button_add_sub',function(){
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: {
+				act: "get_sub_add_page"
+			},
+			dataType: "json",
+			success: function(data){
+				$('#get_sub_edit_page').html(data.page);
+				$("#get_sub_edit_page").dialog({
+					resizable: false,
+					height: "auto",
+					width: 900,
+					modal: true,
+					buttons: {
+						"შენახვა": function() {
+							save_sub_category();
+						},
+						'დახურვა': function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				});
+			}
+		});
+	});
 	$(document).on('click','#button_trash',function(){
 		var removeIDS = [];
 		var entityGrid = $("#product_categories").data("kendoGrid");
@@ -373,6 +403,25 @@
 			dataType: "json",
 			success: function (data) {
 				$("#product_categories").data("kendoGrid").dataSource.read();
+			}
+		});
+	});
+	$(document).on('click','#button_trash_sub',function(){
+		var removeIDS = [];
+		var entityGrid = $("#sub_category_grid").data("kendoGrid");
+		var rows = entityGrid.select();
+		rows.each(function(index, row) {
+			var selectedItem = entityGrid.dataItem(row);
+			// selectedItem has EntityVersionId and the rest of your model
+			removeIDS.push(selectedItem.id);
+		});
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: "act=disable&id=" + removeIDS,
+			dataType: "json",
+			success: function (data) {
+				$("#sub_category_grid").data("kendoGrid").dataSource.read();
 			}
 		});
 	});
@@ -420,8 +469,95 @@
 		kendo.loadKendoUI(aJaxURL,'get_list',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
 
 	}
+	function LoadKendoTable_sub_category(hidden){
+
+		//KendoUI CLASS CONFIGS BEGIN
+		var aJaxURL	        =   "server-side/production_categories.action.php";
+		var gridName        = 	'sub_category_grid';
+		var actions         = 	'<div class="btn btn-list"><a id="button_add_sub" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a><a id="button_trash_sub" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-trash"></i> წაშლა</a></div>';
+		var editType        =   "popup"; // Two types "popup" and "inline"
+		var itemPerPage     = 	20;
+		var columnsCount    =	6;
+		var columnsSQL      = 	[
+									"id:string",
+									"category_geo:string",
+									"category_rus:string",
+									"category_eng:string",
+									"position:string",
+									"status:string"
+								];
+		var columnGeoNames  = 	[
+									"ID", 
+									"კატეგორია GEO",
+									"კატეგორია RUS",
+									"კატეგორია ENG",
+									"პოზიცია",
+									"სტატუსი"
+								];
+
+		var showOperatorsByColumns  =   [0,0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0,0]; 
+
+		var locked                  =   [0,0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0,0];
+
+		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
+		//KendoUI CLASS CONFIGS END
+			
+		const kendo = new kendoUI();
+		kendo.loadKendoUI(aJaxURL,'get_list_sub',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
+
+	}
 	$(document).on('click','#upload_img',function(){
 		$("#upload_back_img").trigger('click');
+	});
+	$(document).on('change','#upload_back_img', function(e){
+
+		//submit the form here
+		//var name = $(".fileupchat").val();
+		var file_data = $('#upload_back_img').prop('files')[0];
+		var fileName = e.target.files[0].name;
+		var fileNameN = Math.ceil(Math.random()*99999999999);
+		var fileSize = e.target.files[0].size;
+		var fileExt = $(this).val().split('.').pop().toLowerCase();
+		var form_data = new FormData();
+		var cat_id = $("#cat_id").val();
+		form_data.append('act', 'upload_cat_img');
+		form_data.append('file', file_data);
+		form_data.append('ext', fileExt);
+		form_data.append('original', fileName);
+		form_data.append('newName', fileNameN);
+		form_data.append('cat_id', cat_id);
+
+		var fileExtension = ['jpg','png','jpeg'];
+		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
+			$("#upload_back_img").val('');
+		}
+		else {
+
+			if(fileSize>20971520) {
+				alert("შეცდომა! ფაილის ზომა 20MB-ზე მეტია!!!");
+				$(".upload_back_img").val('');
+			}
+			else{
+				$.ajax({
+				url: 'up.php', // point to server-side PHP script
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				success: function (data) {
+					//$("#upload_back_img").val(data);
+					console.log(data)
+					$('.dialog_image').html('<img src="'+data+'"/>');
+				}
+				});
+			}
+
+		}
 	});
 	function save_category(){
 		let params 			= new Object;
@@ -438,6 +574,26 @@
 			success: function(data){
 				$("#product_categories").data("kendoGrid").dataSource.read();
 				$('#get_edit_page').dialog("close");
+			}
+		});
+		
+	}
+	function save_sub_category(){
+		let params 			= new Object;
+		params.act 			= 'save_sub_category';
+		params.id 			= $("#sub_cat_id").val();
+		params.title_geo 	= $("#title_geo_sub").val();
+		params.title_rus 	= $("#title_rus_sub").val();
+		params.title_eng	= $("#title_eng_sub").val();
+		params.parent_id	= $("#cat_id").val();
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				$("#sub_category_grid").data("kendoGrid").dataSource.read();
+				$('#get_sub_edit_page').dialog("close");
 			}
 		});
 		
