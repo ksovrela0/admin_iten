@@ -16,24 +16,29 @@ switch ($act){
         $username = $_REQUEST['username'];
         $password = md5($_REQUEST['password']);
         $db->setQuery(" SELECT  id,
-                                group_id
+                                group_id,
+                                object_id
                         FROM    users
                         WHERE   actived = 1 AND `username` = '$username' AND `password` = '$password'");
         $USERDATA = $db->getResultArray();
         $USERID = $USERDATA['result'][0]['id'];
         $USERGR = $USERDATA['result'][0]['group_id'];
+        $USEROBJ = $USERDATA['result'][0]['object_id'];
         if($USERID == ''){
             $authResult = 'NO';
         }
         else{
             $_SESSION['USERID'] = $USERID;
             $_SESSION['GRPID'] = $USERGR;
+            $_SESSION['OBJID'] = $USEROBJ;
         }
         
     break;
     case 'sign_out':
         session_destroy();
         unset($_SESSION['USERID']);
+        unset($_SESSION['GRPID']);
+        unset($_SESSION['OBJID']);
     break;
 }
 

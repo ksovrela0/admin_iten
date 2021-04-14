@@ -4,8 +4,8 @@ include('../db.php');
 GLOBAL $db;
 $db = new dbClass();
 $act = $_REQUEST['act'];
-$user_id = $_SESSION['USERID'];
-
+$user_id    = $_SESSION['USERID'];
+$obj_id     = $_SESSION['OBJID'];
 switch ($act){
     case 'get_add_page':
         $id = $_REQUEST['id'];
@@ -175,7 +175,7 @@ switch ($act){
                         FROM        orders
                         LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
                         LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE 	    orders.actived = 1
+                        WHERE 	    orders.actived = 1 AND orders.object_id = '$obj_id'
                         GROUP BY    orders.id");
 
         $result = $db->getKendoList($columnCount, $cols);
@@ -188,9 +188,9 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
         $db->setQuery(" SELECT      orders_detail.id,
-                                    CONCAT('<img src=\"http://new.iten.ge/',products.back_img,'\" style=\"height:70px;\">'),
+                                    CONCAT('<img src=\"http://admin.iten.ge/',products.back_img,'\" style=\"height:70px;\">'),
                                     products.title_geo,
-                                    CONCAT(orders_detail.portions,' ცალი'),
+                                    CONCAT(orders_detail.portions,' ცალი X ',IF(products.price_sale = 0.00,products.price,products.price_sale), ' = ', orders_detail.portions*IF(products.price_sale = 0.00,products.price,products.price_sale)) AS price,
                                     orders_detail.comment,
                                     CASE
                                         WHEN orders_detail.status = 1 THEN '<span class=\"badge badge-danger\">ვერ ვაწვდით</span>'
@@ -199,8 +199,10 @@ switch ($act){
                                     END AS 'status',
                                     '<div style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div><div id=\"change_product\" style=\"background-color:#ffee1d;font-weight: bold;margin: 4px;border-radius:10px;padding:7px;cursor:pointer;\">ჩანაცვლება</div>' AS 'action'
                         FROM        orders_detail
+                        JOIN		orders ON orders.id = orders_detail.order_id
                         LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE       orders_detail.order_id = '$id' AND orders_detail.actived = 1");
+                        WHERE       orders_detail.order_id = '$id' AND orders_detail.actived = 1 AND orders.object_id = '$obj_id'
+                        GROUP BY    orders_detail.id");
 
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
