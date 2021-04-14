@@ -180,7 +180,7 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
             $db->setQuery(" SELECT  objects.id,
-                                    CONCAT('<img src=\"http://new.iten.ge/assets/media/images/obj/',objects.logo,'\" style=\"height:150px;\">'),
+                                    CONCAT('<img src=\"http://admin.iten.ge/assets/media/images/obj/',objects.logo,'\" style=\"height:150px;\">'),
                                     objects.name_geo,
                                     objects.name_rus,
                                     objects.name_eng,
@@ -277,13 +277,25 @@ function getPage($res = ''){
             <div id="object_branches"></div>
         </div>
     </fieldset>
-    <fieldset class="fieldset">
+    <fieldset class="fieldset" style="display: inline-flex;">
         <legend>სურათი</legend>
-        <div class="dialog_image">
-            <img src="http://new.iten.ge/assets/media/images/obj/'.$res[logo].'">
+        <div class="dialog_image" id="dialog_image_1">
+            <img src="http://admin.iten.ge/'.$res[logo].'">
         </div>
         <p id="upload_img" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:40px;">სურათის შეცვლა</p>
-        <input style="opacity: 0;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
+        <input style="opacity: 0;display:none;" type="file" id="upload_back_img" name="image_upload" autocomplete="off">
+
+        <div class="dialog_image" id="dialog_image_2">
+            <img src="http://admin.iten.ge/'.$res[default_cat_image].'">
+        </div>
+        <p id="upload_img_cat" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:10px;">DEFAULT კატეგორიის შეცვლა</p>
+        <input style="opacity: 0;display:none;" type="file" id="upload_default_cat_img" name="default_cat_upload" autocomplete="off">
+
+        <div class="dialog_image" id="dialog_image_3">
+            <img src="http://admin.iten.ge/'.$res[default_product_image].'">
+        </div>
+        <p id="upload_img_product" style="color:blue;text-decoration: underline;cursor: pointer; margin-left:10px;">DEFAULT პროდუქციის შეცვლა</p>
+        <input style="opacity: 0;display:none;" type="file" id="upload_default_product_img" name="default_product_upload" autocomplete="off">
     </fieldset>
     <input type="hidden" id="object_id" value="'.$res[id].'">
     ';
@@ -315,6 +327,8 @@ function getObject($id){
 
     $db->setQuery(" SELECT      objects.id,
                                 objects.logo,
+                                objects.default_cat_image,
+                                objects.default_product_image,
                                 objects.name_geo,
                                 objects.name_rus,
                                 objects.name_eng,

@@ -476,6 +476,161 @@
 	$(document).on('click','#upload_img',function(){
 		$("#upload_back_img").trigger('click');
 	});
+	$(document).on('change','#upload_back_img', function(e){
+
+		//submit the form here
+		//var name = $(".fileupchat").val();
+		var file_data = $('#upload_back_img').prop('files')[0];
+		var fileName = e.target.files[0].name;
+		var fileNameN = Math.ceil(Math.random()*99999999999);
+		var fileSize = e.target.files[0].size;
+		var fileExt = $(this).val().split('.').pop().toLowerCase();
+		var form_data = new FormData();
+		var object_id = $("#object_id").val();
+		form_data.append('act', 'upload_object_logo');
+		form_data.append('file', file_data);
+		form_data.append('ext', fileExt);
+		form_data.append('original', fileName);
+		form_data.append('newName', fileNameN);
+		form_data.append('object_id', object_id);
+
+		var fileExtension = ['jpg','png','jpeg'];
+		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
+			$("#upload_back_img").val('');
+		}
+		else {
+
+			if(fileSize>20971520) {
+				alert("შეცდომა! ფაილის ზომა 20MB-ზე მეტია!!!");
+				$(".upload_back_img").val('');
+			}
+			else{
+				$.ajax({
+				url: 'up.php', // point to server-side PHP script
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				success: function (data) {
+					//$("#upload_back_img").val(data);
+					console.log(data)
+					$('#dialog_image_1').html('<img src="'+data+'"/>');
+				}
+				});
+			}
+
+		}
+	});
+
+
+
+	$(document).on('click','#upload_img_cat',function(){
+		$("#upload_default_cat_img").trigger('click');
+	});
+	$(document).on('change','#upload_default_cat_img', function(e){
+
+		//submit the form here
+		//var name = $(".fileupchat").val();
+		var file_data = $('#upload_default_cat_img').prop('files')[0];
+		var fileName = e.target.files[0].name;
+		var fileNameN = Math.ceil(Math.random()*99999999999);
+		var fileSize = e.target.files[0].size;
+		var fileExt = $(this).val().split('.').pop().toLowerCase();
+		var form_data = new FormData();
+		var object_id = $("#object_id").val();
+		form_data.append('act', 'upload_object_default_cat');
+		form_data.append('file', file_data);
+		form_data.append('ext', fileExt);
+		form_data.append('original', fileName);
+		form_data.append('newName', fileNameN);
+		form_data.append('object_id', object_id);
+
+		var fileExtension = ['jpg','png','jpeg'];
+		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
+			$("#upload_default_cat_img").val('');
+		}
+		else {
+
+			if(fileSize>20971520) {
+				alert("შეცდომა! ფაილის ზომა 20MB-ზე მეტია!!!");
+				$(".upload_default_cat_img").val('');
+			}
+			else{
+				$.ajax({
+				url: 'up.php', // point to server-side PHP script
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				success: function (data) {
+					//$("#upload_back_img").val(data);
+					console.log(data)
+					$('#dialog_image_2').html('<img src="'+data+'"/>');
+				}
+				});
+			}
+
+		}
+	});
+
+
+	$(document).on('click','#upload_img_product',function(){
+		$("#upload_default_product_img").trigger('click');
+	});
+	$(document).on('change','#upload_default_product_img', function(e){
+
+		//submit the form here
+		//var name = $(".fileupchat").val();
+		var file_data = $('#upload_default_product_img').prop('files')[0];
+		var fileName = e.target.files[0].name;
+		var fileNameN = Math.ceil(Math.random()*99999999999);
+		var fileSize = e.target.files[0].size;
+		var fileExt = $(this).val().split('.').pop().toLowerCase();
+		var form_data = new FormData();
+		var object_id = $("#object_id").val();
+		form_data.append('act', 'upload_object_default_product');
+		form_data.append('file', file_data);
+		form_data.append('ext', fileExt);
+		form_data.append('original', fileName);
+		form_data.append('newName', fileNameN);
+		form_data.append('object_id', object_id);
+
+		var fileExtension = ['jpg','png','jpeg'];
+		if ($.inArray($(this).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
+			alert("დაუშვებელი ფორმატი!!!  გამოიყენეთ მხოლოდ: "+fileExtension.join(', '));
+			$("#upload_default_product_img").val('');
+		}
+		else {
+
+			if(fileSize>20971520) {
+				alert("შეცდომა! ფაილის ზომა 20MB-ზე მეტია!!!");
+				$(".upload_default_product_img").val('');
+			}
+			else{
+				$.ajax({
+				url: 'up.php', // point to server-side PHP script
+				dataType: 'text',  // what to expect back from the PHP script, if anything
+				cache: false,
+				contentType: false,
+				processData: false,
+				data: form_data,
+				type: 'post',
+				success: function (data) {
+					//$("#upload_back_img").val(data);
+					console.log(data)
+					$('#dialog_image_3').html('<img src="'+data+'"/>');
+				}
+				});
+			}
+
+		}
+	});
 	function save_category(){
 		let params 			= new Object;
 		params.act 			= 'save_object';
