@@ -180,7 +180,7 @@ switch ($act){
 		$cols[]      =      $_REQUEST['cols'];
 
             $db->setQuery(" SELECT  objects.id,
-                                    CONCAT('<img src=\"http://admin.iten.ge/assets/media/images/obj/',objects.logo,'\" style=\"height:150px;\">'),
+                                    CONCAT('<img src=\"http://admin.iten.ge/',objects.logo,'\" style=\"height:150px;\">'),
                                     objects.name_geo,
                                     objects.name_rus,
                                     objects.name_eng,
