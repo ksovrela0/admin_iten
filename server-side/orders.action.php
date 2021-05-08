@@ -166,6 +166,7 @@ switch ($act){
                                     orders.datetime,
                                     GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
                                     CONCAT(orders.amount,' GEL') AS 'price',
+                                    details,
                                     CASE
                                             WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">ახალი შეკვეთა</div>'
                                             WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">მზადების პროცესში</div>'

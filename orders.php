@@ -423,13 +423,14 @@
 		var actions         = 	'';
 		var editType        =   "popup"; // Two types "popup" and "inline"
 		var itemPerPage     = 	20;
-		var columnsCount    =	7;
+		var columnsCount    =	8;
 		var columnsSQL      = 	[
 									"id:string",
 									"photo:string",
 									"name:string",
 									"cty:string",
 									"comment:string",
+									"cl:string",
 									"status:string",
 									"action:string"
 								];
@@ -439,15 +440,16 @@
 									"დასახელება",
 									"რაოდენობა/ფასი",
 									"კომენტარი",
+									"კლიენტის ინფო",
 									"სტატუსი",
 									"ქმედება"
 								];
 
-		var showOperatorsByColumns  =   [0,0,0,0,0,0,0]; 
-		var selectors               =   [0,0,0,0,0,0,0]; 
+		var showOperatorsByColumns  =   [0,0,0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0,0,0]; 
 
-		var locked                  =   [0,0,0,0,0,0,0];
-		var lockable                =   [0,0,0,0,0,0,0];
+		var locked                  =   [0,0,0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0,0,0];
 
 		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
 		//KendoUI CLASS CONFIGS END
