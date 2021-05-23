@@ -6,14 +6,75 @@ $db = new dbClass();
 $act = $_REQUEST['act'];
 $user_id    = $_SESSION['USERID'];
 $obj_id     = $_SESSION['OBJID'];
+$group_id   = $_SESSION['GRPID'];
 switch ($act){
     case 'get_add_page':
         $id = $_REQUEST['id'];
         $data = array('page' => getPage());
     break;
     case 'get_edit_page':
+        $id = $_REQUEST['id'];
+        $data = array('page' => getPage($id));
+    break;
+    case 'not_delivering_poduct':
+        $order_detail_id    = $_REQUEST['order_detail_id'];
+        $order_id           = $_REQUEST['order_id'];
+        $db->setQuery("UPDATE   orders_detail
+                        SET     status = 2
+                        WHERE   id = '$order_detail_id'");
+        $db->execQuery();
+    break;
+    case 'not_delivering_order':
+        $order_id           = $_REQUEST['order_id'];
+        $db->setQuery(" UPDATE  orders
+                        SET     status = 8
+                        WHERE   id = '$order_id'");
+        $db->execQuery();
+    break;
+    case 'ready_order':
+        $order_id           = $_REQUEST['order_id'];
+        $db->setQuery(" UPDATE  orders
+                        SET     status = 4
+                        WHERE   id = '$order_id'");
+        $db->execQuery();
+    break;
+    case 'start_preparing':
+        $order_id = $_REQUEST['order_id'];
 
-        $data = array('page' => getPage());
+        $db->setQuery(" SELECT  UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(datetime) AS 'passed_seconds',
+                                status
+                        FROM    orders
+                        WHERE   id = '$order_id'");
+        $getSeconds = $db->getResultArray();
+
+        $passedSeconds = $getSeconds['result'][0]['passed_seconds'];
+        if($getSeconds['result'][0]['status'] == 2){
+            if($passedSeconds < 180){
+                $data['action']         = 'not_passed_time';
+                $data['passedSeconds']  = $passedSeconds;
+            }
+            else{
+                $db->setQuery(" UPDATE  orders
+                                SET     status = 3
+                                WHERE   id = '$order_id'");
+                $db->execQuery();
+                $data['action'] = 'started';
+            }
+        }
+        else{
+            $data['action']         = '';
+            $data['passedSeconds']  = '';
+        }
+        
+
+    break;
+    case 'delivering_poduct':
+        $order_detail_id    = $_REQUEST['order_detail_id'];
+        $order_id           = $_REQUEST['order_id'];
+        $db->setQuery("UPDATE   orders_detail
+                        SET     status = 1
+                        WHERE   id = '$order_detail_id'");
+        $db->execQuery();
     break;
     case 'save_product':
         $id = $_REQUEST['id'];
@@ -162,22 +223,56 @@ switch ($act){
         $columnCount = 		$_REQUEST['count'];
 		$cols[]      =      $_REQUEST['cols'];
 
-        $db->setQuery("SELECT       orders.id,
-                                    orders.datetime,
-                                    GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
-                                    CONCAT(orders.amount,' GEL') AS 'price',
-                                    details,
-                                    CASE
-                                            WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">ახალი შეკვეთა</div>'
-                                            WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">მზადების პროცესში</div>'
-                                            WHEN orders.status = 3 THEN '<div class=\"cat_status_3\">გაუქმებული</div>'
-                                    END AS 'status'
+        if($group_id == 3){
+            $db->setQuery(" SELECT      orders.id,
+                                        orders.datetime,
+                                        GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
+                                        CONCAT(orders.delivery_price,' GEL') AS 'price',
+                                        orders.objToClient_km AS 'km_to_client',
+                                        orders.client_address AS 'client_address',
+                                        orders.client_data,
+                                        CASE
+                                                WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">გადაუხდელი(ბარათით)</div>'
+                                                WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">ახალი შეკვეთა</div>'
+                                                WHEN orders.status = 3 THEN '<div class=\"cat_status_3\">მზადების პროცესში</div>'
+                                                WHEN orders.status = 4 THEN '<div class=\"cat_status_4\">მზადაა და ელოდება კურიერს/კლიენტს</div>'
+                                                WHEN orders.status = 5 THEN '<div class=\"cat_status_5\">მიტანის პროცესში</div>'
+                                                WHEN orders.status = 6 THEN '<div class=\"cat_status_6\">წარმატებულად დასრულებული</div>'
+                                                WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
+                                                WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
+                                        END AS 'status',
+                                        'შეკვეთის აღება' AS 'action'
 
-                        FROM        orders
-                        LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
-                        LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE 	    orders.actived = 1 AND orders.object_id = '$obj_id'
-                        GROUP BY    orders.id");
+                            FROM        orders
+                            LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
+                            LEFT JOIN	products ON products.id = orders_detail.product_id
+                            WHERE 	    orders.actived = 1 AND orders.status >= 3
+                            GROUP BY    orders.id");
+        }
+        else{
+            $db->setQuery(" SELECT       orders.id,
+                                        orders.datetime,
+                                        GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
+                                        CONCAT(orders.amount,' GEL') AS 'price',
+                                        details,
+                                        CASE
+                                                WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">გადაუხდელი(ბარათით)</div>'
+                                                WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">ახალი შეკვეთა</div>'
+                                                WHEN orders.status = 3 THEN '<div class=\"cat_status_3\">მზადების პროცესში</div>'
+                                                WHEN orders.status = 4 THEN '<div class=\"cat_status_4\">მზადაა და ელოდება კურიერს/კლიენტს</div>'
+                                                WHEN orders.status = 5 THEN '<div class=\"cat_status_5\">მიტანის პროცესში</div>'
+                                                WHEN orders.status = 6 THEN '<div class=\"cat_status_6\">წარმატებულად დასრულებული</div>'
+                                                WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
+                                                WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
+                                        END AS 'status'
+
+                            FROM        orders
+                            LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
+                            LEFT JOIN	products ON products.id = orders_detail.product_id
+                            WHERE 	    orders.actived = 1 AND orders.object_id = '$obj_id'
+                            GROUP BY    orders.id");
+        }
+        
 
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
@@ -194,11 +289,11 @@ switch ($act){
                                     CONCAT(orders_detail.portions,' ცალი X ',IF(products.price_sale = 0.00,products.price,products.price_sale), ' = ', orders_detail.portions*IF(products.price_sale = 0.00,products.price,products.price_sale)) AS price,
                                     orders_detail.comment,
                                     CASE
-                                        WHEN orders_detail.status = 1 THEN '<span class=\"badge badge-danger\">ვერ ვაწვდით</span>'
-                                        WHEN orders_detail.status = 2 THEN '<span class=\"badge badge-success\">ვაწვდით</span>'
+                                        WHEN orders_detail.status = 2 THEN '<span class=\"badge badge-danger\">ვერ ვაწვდით</span>'
+                                        WHEN orders_detail.status = 1 THEN '<span class=\"badge badge-success\">ვაწვდით</span>'
                                         WHEN orders_detail.status = 3 THEN '<span class=\"badge badge-secondary\">ჩამატებული</span>'
                                     END AS 'status',
-                                    '<div style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div><div id=\"change_product\" style=\"background-color:#ffee1d;font-weight: bold;margin: 4px;border-radius:10px;padding:7px;cursor:pointer;\">ჩანაცვლება</div>' AS 'action'
+                                    IF(orders_detail.status = 1,CONCAT('<div id=\"not_have\" order_id=\"',orders_detail.id,'\" style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\"><img src=\"assets/img/icons/forbidden.png\" style=\"height:24px;\"> ვერ ვაწვდით</div>'),CONCAT('<div id=\"have_deliver\" order_id=\"',orders_detail.id,'\" style=\"background-color:#ffee1d;font-weight: bold;border-radius:10px;margin: 4px;padding:7px;cursor:pointer;\">ვაწვდით</div>')) AS 'action'
                         FROM        orders_detail
                         JOIN		orders ON orders.id = orders_detail.order_id
                         LEFT JOIN	products ON products.id = orders_detail.product_id
@@ -208,6 +303,7 @@ switch ($act){
         $result = $db->getKendoList($columnCount, $cols);
         $data = $result;
     break;
+    //<div id=\"change_product\" style=\"background-color:#ffee1d;font-weight: bold;margin: 4px;border-radius:10px;padding:7px;cursor:pointer;\">ჩანაცვლება</div> IF NEEDED
 }
 
 
@@ -223,7 +319,7 @@ function getPage($res = ''){
             <div id="orders_detail"></div>
         </div>
     </fieldset>
-    
+    <input type="hidden" value="'.$res.'" id="order_id">
     ';
 
     return $data;

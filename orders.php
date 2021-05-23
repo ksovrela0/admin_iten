@@ -230,7 +230,13 @@
 							';
 						}
 						else{
-							echo '<div id="orders"></div>';
+							if($_SESSION['GRPID'] == 3){
+								echo '<div id="orders_couriers"></div>';
+							}
+							else{
+								echo '<div id="orders"></div>';
+							}
+							
 						}
 					?>
 					
@@ -353,12 +359,87 @@
 					width: 900,
 					modal: true,
 					buttons: {
-						"დაწყება": function() {
-							alert('შეკვეთა მზადების პროცესშია');
+						"start": {
+							id: 'start_preparing',
+							text: 'დაწყება',
+							click: function(){
+								var order_id 			= $("#order_id").val();
+								let params 				= new Object;
+								params.act 				= 'start_preparing';
+								params.order_id 		= order_id;
+								
+								$.ajax({
+									url: aJaxURL,
+									type: "POST",
+									data: params,
+									dataType: "json",
+									success: function(data){
+										var passedSeconds 	= 180 - data.passedSeconds;
+										var action 			= data.action;
+										if(action == 'not_passed_time'){
+											alert("შეკვეთის ასაღებად უნდა გავიდეს 3 წუთი. დარჩენილი დრო: "+passedSeconds+" წამი!!!");
+										}
+										else if(action == 'started'){
+											$("#get_edit_page").dialog( "close" );
+											$("#orders").data("kendoGrid").dataSource.read();
+										}
+										else{
+											alert('დაფიქსირდა შეცდომა ან შეკვეთა უკვე მზადების პროცესშია');
+										}
+										
+									}
+								});
+							}
 						},
-						'დახურვა': function() {
-							$( this ).dialog( "close" );
-						}
+						'close': {
+							id: 'close',
+							text: 'დახურვა',
+							click: function(){
+								$( this ).dialog( "close" );
+							}
+						},
+						'miss_order': {
+							id: 'miss_order',
+							text: 'გაუქმება',
+							click: function(){
+								var order_id 			= $("#order_id").val();
+								let params 				= new Object;
+								params.act 				= 'not_delivering_order';
+								params.order_id 		= order_id;
+								
+								$.ajax({
+									url: aJaxURL,
+									type: "POST",
+									data: params,
+									dataType: "json",
+									success: function(data){
+										$("#get_edit_page").dialog( "close" );
+										$("#orders").data("kendoGrid").dataSource.read();
+									}
+								});
+							}
+						},
+						'ready_order': {
+							id: 'ready_order',
+							text: 'შეკვეთა მზადაა',
+							click: function(){
+								var order_id 			= $("#order_id").val();
+								let params 				= new Object;
+								params.act 				= 'ready_order';
+								params.order_id 		= order_id;
+								
+								$.ajax({
+									url: aJaxURL,
+									type: "POST",
+									data: params,
+									dataType: "json",
+									success: function(data){
+										$("#get_edit_page").dialog( "close" );
+										$("#orders").data("kendoGrid").dataSource.read();
+									}
+								});
+							}
+						},
 					}
 				});
 				var hidden = "&order_id="+dItem.id;
@@ -413,7 +494,15 @@
 		});
 	});
 	$( document ).ready(function() {
-		LoadKendoTable_incomming()
+		<?php
+		if($_SESSION['GRPID'] == 3){
+			echo 'LoadKendoTable_incomming_cc()';
+		}
+		else{
+			echo 'LoadKendoTable_incomming()';
+		}
+			
+		?>
 	});
 	function LoadKendoTable_orderDetail(hidden){
 
@@ -454,6 +543,51 @@
 			
 		const kendo = new kendoUI();
 		kendo.loadKendoUI(aJaxURL,'get_list_detail',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
+
+	}
+	function LoadKendoTable_incomming_cc(hidden){
+
+		//KendoUI CLASS CONFIGS BEGIN
+		var aJaxURL	        =   "server-side/orders.action.php";
+		var gridName        = 	'orders_couriers';
+		var actions         = 	'';
+		var editType        =   "popup"; // Two types "popup" and "inline"
+		var itemPerPage     = 	20;
+		var columnsCount    =	9;
+		var columnsSQL      = 	[
+									"id:string",
+									"date:string",
+									"order:string",
+									"del_price:string",
+									"km_to_client:string",
+									"client_addr:string",
+									"client_data:string",
+									"status:string",
+									"act:string"
+								];
+		var columnGeoNames  = 	[
+									"ID", 
+									"თარიღი",
+									"შეკვეთა",
+									"მიტანის ფასი",
+									"მანძილი ობიექტიდან კლიენტამდე",
+									"კლიენტის მისამართი",
+									"კლიენტის მონაცემები",
+									"სტატუსი",
+									"ქმედება"
+								];
+
+		var showOperatorsByColumns  =   [0,0,0,0,0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0,0,0,0,0]; 
+
+		var locked                  =   [0,0,0,0,0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0,0,0,0,0];
+
+		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
+		//KendoUI CLASS CONFIGS END
+			
+		const kendo = new kendoUI();
+		kendo.loadKendoUI(aJaxURL,'get_list',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
 
 	}
 	function LoadKendoTable_incomming(hidden){
@@ -500,6 +634,42 @@
 	});
 	$(document).on('click','#change_product', function(){
 		alert('პროდუქციის ჩასანაცვლებლად საჭიროა კლიენტის მოთხოვნა');
+	});
+	$(document).on('click','#not_have', function(){
+		var order_detail_id 	= $(this).attr('order_id');
+		var order_id 			= $("#order_id").val();
+		let params 				= new Object;
+		params.act 				= 'not_delivering_poduct';
+		params.order_detail_id 	= order_detail_id;
+		params.order_id 		= order_id;
+		
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				$("#orders_detail").data("kendoGrid").dataSource.read();
+			}
+		});
+	});
+	$(document).on('click','#have_deliver', function(){
+		var order_detail_id 	= $(this).attr('order_id');
+		var order_id 			= $("#order_id").val();
+		let params 				= new Object;
+		params.act 				= 'delivering_poduct';
+		params.order_detail_id 	= order_detail_id;
+		params.order_id 		= order_id;
+		
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				$("#orders_detail").data("kendoGrid").dataSource.read();
+			}
+		});
 	});
 	function save_product(){
 		let params 				= new Object;
