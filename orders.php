@@ -168,6 +168,20 @@
 	.badge{
 		width: 100%!important;
 	}
+	.courier_start_order{
+		border: 1px solid black;
+		width: 155px;
+		margin: 0 auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+		background-color: #74a8f7;
+		color: #fff;
+		border-radius: 10px;
+		font-size: 16px;
+		font-weight: 900;
+		padding: 8px;
+		cursor: pointer;
+	}
 	</style>
 	<!--[if gte IE 5]><frame></frame><![endif]-->
 	<script src="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/ionicons.z18qlu2u.js" data-resources-url="file:///C:/Users/giorgi/AppData/Local/Temp/Rar$EXa10780.17568/www.spruko.com/demo/dashlead/assets/plugins/ionicons/ionicons/" data-namespace="ionicons"></script>
@@ -210,28 +224,396 @@
 						if(isMobile()){
 							echo '
 							
-							<div class="col-sm-6 col-xl-3 col-lg-6">
-								<div class="card custom-card">
-									<div class="card-body dash1">
-									<div class="d-flex">
-										<p class="mb-1 tx-inverse">შესრულებული <?php echo $word; ?> რ-ბა</p>
-										<div class="ml-auto"> <i class="fab fa-rev fs-20 text-secondary"></i> </div>
-									</div>
-									<div>
-										<h3 class="dash-25">27</h3>
-									</div>
-									<div class="progress mb-1">
-										<div aria-valuemax="100" aria-valuemin="0" aria-valuenow="70" class="progress-bar progress-bar-xs wd-60p bg-secondary" role="progressbar"></div>
-									</div>
-									<div class="expansion-label d-flex"> <span class="text-muted">ამ თვეში</span> <span class="ml-auto"><i class="fas fa-caret-down mr-1 text-danger"></i>0.43%</span> </div>
-									</div>
-								</div>
+							<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+							<div class="col-md-6 col-sm-6 my-auto">
+								109
 							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								2021-05-23 23:17:30
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								11.00 GEL
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								15.5 კმ 
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+							</div>
+							
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								Giorgi ტელ: (599104454)
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								<div class="cat_status_7">გაუქმებული</div>
+							</div>
+
+							<div class="col-md-12 col-sm-12 my-auto">
+								<div class="courier_start_order">შეკვეთის აღება</div>
+							</div>
+							
+						</div>
+
+						<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+							<div class="col-md-6 col-sm-6 my-auto">
+								109
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								2021-05-23 23:17:30
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								11.00 GEL
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								15.5 კმ 
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+							</div>
+							
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								Giorgi ტელ: (599104454)
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								<div class="cat_status_7">გაუქმებული</div>
+							</div>
+
+							<div class="col-md-12 col-sm-12 my-auto">
+								<div class="courier_start_order">შეკვეთის აღება</div>
+							</div>
+							
+						</div>
+
+						<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+							<div class="col-md-6 col-sm-6 my-auto">
+								109
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								2021-05-23 23:17:30
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								11.00 GEL
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								15.5 კმ 
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+							</div>
+							
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								Giorgi ტელ: (599104454)
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								<div class="cat_status_7">გაუქმებული</div>
+							</div>
+
+							<div class="col-md-12 col-sm-12 my-auto">
+								<div class="courier_start_order">შეკვეთის აღება</div>
+							</div>
+							
+						</div>
+
+						<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+							<div class="col-md-6 col-sm-6 my-auto">
+								109
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								2021-05-23 23:17:30
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								11.00 GEL
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								15.5 კმ 
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+							</div>
+							
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								Giorgi ტელ: (599104454)
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								<div class="cat_status_7">გაუქმებული</div>
+							</div>
+
+							<div class="col-md-12 col-sm-12 my-auto">
+								<div class="courier_start_order">შეკვეთის აღება</div>
+							</div>
+							
+						</div>
+
+						<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+							<div class="col-md-6 col-sm-6 my-auto">
+								109
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								2021-05-23 23:17:30
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								11.00 GEL
+							</div>
+
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								15.5 კმ 
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+							</div>
+							
+
+							<div class="col-md-6 col-sm-6 my-auto">
+								Giorgi ტელ: (599104454)
+							</div>
+							<div class="col-md-6 col-sm-6 my-auto">
+								<div class="cat_status_7">გაუქმებული</div>
+							</div>
+
+							<div class="col-md-12 col-sm-12 my-auto">
+								<div class="courier_start_order">შეკვეთის აღება</div>
+							</div>
+							
+						</div>
+
+								
 							';
 						}
 						else{
 							if($_SESSION['GRPID'] == 3){
-								echo '<div id="orders_couriers"></div>';
+								echo '<div id="orders_couriers"></div>
+								<br>
+								<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+									<div class="col-md-6 col-sm-6 my-auto">
+										109
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										2021-05-23 23:17:30
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										ბურგერი ბეკონით X1
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										11.00 GEL
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										15.5 კმ 
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+									</div>
+									
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										Giorgi ტელ: (599104454)
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										<div class="cat_status_7">გაუქმებული</div>
+									</div>
+
+									<div class="col-md-12 col-sm-12 my-auto">
+										<div class="courier_start_order">შეკვეთის აღება</div>
+									</div>
+									
+								</div>
+
+								<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+									<div class="col-md-6 col-sm-6 my-auto">
+										109
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										2021-05-23 23:17:30
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										ბურგერი ბეკონით X1
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										11.00 GEL
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										15.5 კმ 
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+									</div>
+									
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										Giorgi ტელ: (599104454)
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										<div class="cat_status_7">გაუქმებული</div>
+									</div>
+
+									<div class="col-md-12 col-sm-12 my-auto">
+										<div class="courier_start_order">შეკვეთის აღება</div>
+									</div>
+									
+								</div>
+
+								<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+									<div class="col-md-6 col-sm-6 my-auto">
+										109
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										2021-05-23 23:17:30
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										ბურგერი ბეკონით X1
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										11.00 GEL
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										15.5 კმ 
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+									</div>
+									
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										Giorgi ტელ: (599104454)
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										<div class="cat_status_7">გაუქმებული</div>
+									</div>
+
+									<div class="col-md-12 col-sm-12 my-auto">
+										<div class="courier_start_order">შეკვეთის აღება</div>
+									</div>
+									
+								</div>
+
+								<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+									<div class="col-md-6 col-sm-6 my-auto">
+										109
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										2021-05-23 23:17:30
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										ბურგერი ბეკონით X1
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										11.00 GEL
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										15.5 კმ 
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+									</div>
+									
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										Giorgi ტელ: (599104454)
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										<div class="cat_status_7">გაუქმებული</div>
+									</div>
+
+									<div class="col-md-12 col-sm-12 my-auto">
+										<div class="courier_start_order">შეკვეთის აღება</div>
+									</div>
+									
+								</div>
+
+								<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
+									<div class="col-md-6 col-sm-6 my-auto">
+										109
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										2021-05-23 23:17:30
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										ბურგერი ბეკონით X1
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										11.00 GEL
+									</div>
+
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										15.5 კმ 
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
+									</div>
+									
+
+									<div class="col-md-6 col-sm-6 my-auto">
+										Giorgi ტელ: (599104454)
+									</div>
+									<div class="col-md-6 col-sm-6 my-auto">
+										<div class="cat_status_7">გაუქმებული</div>
+									</div>
+
+									<div class="col-md-12 col-sm-12 my-auto">
+										<div class="courier_start_order">შეკვეთის აღება</div>
+									</div>
+									
+								</div>
+								
+								
+								
+								';
 							}
 							else{
 								echo '<div id="orders"></div>';
@@ -331,7 +713,7 @@
 	
 	<div class="main-navbar-backdrop"></div>
 	<div title="შეკვეთა" id="get_edit_page">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+		<!-- <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p> -->
 	</div>
 	<script>
 	var aJaxURL = "server-side/orders.action.php";
