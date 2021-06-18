@@ -241,7 +241,7 @@ switch ($act){
                                                 WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
                                                 WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
                                         END AS 'status',
-                                        'შეკვეთის აღება' AS 'action'
+                                        '<div class=\"courier_start_order\">შეკვეთის აღება</div>' AS 'action'
 
                             FROM        orders
                             LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
