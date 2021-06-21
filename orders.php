@@ -235,6 +235,8 @@
 
 
 							<div class="col-md-6 col-sm-6 my-auto">
+								ბურგერი ბეკონით X1,
+								ბურგერი ბეკონით X1,
 								ბურგერი ბეკონით X1
 							</div>
 							<div class="col-md-6 col-sm-6 my-auto">
