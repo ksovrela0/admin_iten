@@ -569,7 +569,7 @@
 				$("#mobile_courier_orders").html('');
 
 				var orders = data.result;
-
+				console.log(orders);
 				orders.forEach(function(index, item){
 					console.log(item.price)
 				});
