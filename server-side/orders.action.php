@@ -16,6 +16,33 @@ switch ($act){
         $id = $_REQUEST['id'];
         $data = array('page' => getPage($id));
     break;
+    case 'get_courier_data_mobile':
+        $db->setQuery(" SELECT      orders.id,
+                                    orders.datetime,
+                                    GROUP_CONCAT(CONCAT(products.title_geo,' X',orders_detail.portions)) AS 'order',
+                                    CONCAT(orders.delivery_price,' GEL') AS 'price',
+                                    orders.objToClient_km AS 'km_to_client',
+                                    orders.client_address AS 'client_address',
+                                    orders.client_data,
+                                    CASE
+                                            WHEN orders.status = 1 THEN '<div class=\"cat_status_1\">გადაუხდელი(ბარათით)</div>'
+                                            WHEN orders.status = 2 THEN '<div class=\"cat_status_2\">ახალი შეკვეთა</div>'
+                                            WHEN orders.status = 3 THEN '<div class=\"cat_status_3\">მზადების პროცესში</div>'
+                                            WHEN orders.status = 4 THEN '<div class=\"cat_status_4\">მზადაა და ელოდება კურიერს/კლიენტს</div>'
+                                            WHEN orders.status = 5 THEN '<div class=\"cat_status_5\">მიტანის პროცესში</div>'
+                                            WHEN orders.status = 6 THEN '<div class=\"cat_status_6\">წარმატებულად დასრულებული</div>'
+                                            WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
+                                            WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
+                                    END AS 'status',
+                                    '<div class=\"courier_start_order\">შეკვეთის აღება</div>' AS 'action'
+
+                        FROM        orders
+                        LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
+                        LEFT JOIN	products ON products.id = orders_detail.product_id
+                        WHERE 	    orders.actived = 1 AND orders.status >= 3
+                        GROUP BY    orders.id");
+        $data = $db->getResultArray();
+    break;
     case 'not_delivering_poduct':
         $order_detail_id    = $_REQUEST['order_detail_id'];
         $order_id           = $_REQUEST['order_id'];

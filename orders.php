@@ -566,7 +566,13 @@
 			data: params,
 			dataType: "json",
 			success: function(data){
-				alert(123)
+				$("#mobile_courier_orders").html('');
+
+				var orders = data.result;
+
+				orders.forEach(function(index, item){
+					
+				});
 			}
 		});
 	}
