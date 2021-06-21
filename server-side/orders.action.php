@@ -34,14 +34,39 @@ switch ($act){
                                             WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
                                             WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
                                     END AS 'status',
-                                    '<div class=\"courier_start_order\">შეკვეთის აღება</div>' AS 'action'
+                                    CONCAT('<div order_id=\"',orders.id,'\" class=\"courier_start_order\">შეკვეთის აღება</div>') AS 'action'
 
                         FROM        orders
                         LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
                         LEFT JOIN	products ON products.id = orders_detail.product_id
-                        WHERE 	    orders.actived = 1 AND orders.status >= 3
+                        WHERE 	    orders.actived = 1 AND orders.status >= 3 AND orders.status <= 5 AND (ISNULL(orders.courier_id) OR orders.courier_id = '' OR orders.courier_id = 0 OR orders.courier_id = '$_SESSION[USERID]')
                         GROUP BY    orders.id");
         $data = $db->getResultArray();
+    break;
+    case 'start_delivery':
+        $order_id = $_REQUEST['order_id'];
+
+        $db->setQuery(" SELECT  COUNT(*) AS 'cc' 
+                        FROM    orders
+                        WHERE   orders.id = '$order_id' AND orders.courier_id > 0 AND orders.status IN (4,5)");
+        $cc = $db->getResultArray();
+
+        if($cc['result'][0]['cc'] == 0){
+            $db->setQuery(" UPDATE  orders
+                            SET     courier_id = '$_SESSION[USERID]',
+                                    status = 5
+                            WHERE   id = '$order_id'");
+            $db->execQuery();
+
+            $db->setQuery(" UPDATE  users
+                            SET     real_balance = real_balance+3
+                            WHERE   id = '$_SESSION[USERID]'");
+            $db->execQuery();
+            $data['action'] = 'OK';
+        }else{
+            $data['action'] = 'error';
+        }
+        
     break;
     case 'not_delivering_poduct':
         $order_detail_id    = $_REQUEST['order_detail_id'];
@@ -268,12 +293,12 @@ switch ($act){
                                                 WHEN orders.status = 7 THEN '<div class=\"cat_status_7\">წარუმატებელი</div>'
                                                 WHEN orders.status = 8 THEN '<div class=\"cat_status_7\">გაუქმებული</div>'
                                         END AS 'status',
-                                        '<div class=\"courier_start_order\">შეკვეთის აღება</div>' AS 'action'
+                                        CONCAT('<div order_id=\"',orders.id,'\" class=\"courier_start_order\">შეკვეთის აღება</div>') AS 'action'
 
                             FROM        orders
                             LEFT JOIN   orders_detail ON orders_detail.order_id = orders.id
                             LEFT JOIN	products ON products.id = orders_detail.product_id
-                            WHERE 	    orders.actived = 1 AND orders.status >= 3
+                            WHERE 	    orders.actived = 1 AND orders.status >= 3 AND orders.status <= 5 AND (ISNULL(orders.courier_id) OR orders.courier_id = '' OR orders.courier_id = 0 OR orders.courier_id = '$_SESSION[USERID]')
                             GROUP BY    orders.id");
         }
         else{

@@ -5,8 +5,11 @@
       <?php
          $group_id = $_SESSION['GRPID'];
          if($group_id == 3){
-            echo '<div class="dropdown d-md-flex"> <p style="margin:0!important;font-weight: 700;">ქეშ-ბალანასი: <span id="money_cash"> - 4.27</span></p>  </div>
-                  <div class="dropdown d-md-flex" style="margin-left:10px;"> <p style="margin:0!important;font-weight: 700;">ბალანასი: <span id="money_card"> + 24.75</span></p>  </div>';
+            $db->setQuery("SELECT cash_balance,real_balance FROM users WHERE id = '$_SESSION[USERID]'");
+            $balances = $db->getResultArray();
+            $balances = $balances['result'][0];
+            echo '<div class="dropdown d-md-flex"> <p style="margin:0!important;font-weight: 700;">ქეშ-ბალანასი: <span id="money_cash"> - '.$balances['cash_balance'].'</span></p>  </div>
+                  <div class="dropdown d-md-flex" style="margin-left:10px;"> <p style="margin:0!important;font-weight: 700;">ბალანასი: <span id="money_card"> + '.$balances['real_balance'].'</span></p>  </div>';
          }
          if($group_id == 4){
             echo '<div class="dropdown d-md-flex" style="margin-left:10px;"> <p style="margin:0!important;font-weight: 700;">ბალანასი: <span id="money_card"> + 24.75</span></p>  </div>';
@@ -50,9 +53,16 @@
             <a class="main-img-user" href=""><img alt="avatar" src="assets/img/users/1.jpg"></a> 
             <div class="dropdown-menu">
                <div class="header-navheading">
-                  <h6 class="main-notification-title">Sonia Taylor</h6>
-                  <p class="main-notification-text">Web Designer</p>
+                  <?php
+                     $db->setQuery("SELECT CONCAT(firstname,' ',lastname) AS fullname FROM user_info WHERE user_id = '$_SESSION[USERID]'");
+                     $userInfo = $db->getResultArray();
+
+                     echo '<h6 class="main-notification-title">'.$userInfo[result][0][fullname].'</h6>';
+                  ?>
+                  
+                  <p class="main-notification-text">კურიერი</p>
                </div>
+               <a class="dropdown-item border-top"> <i class="fe fe-dollar-sign"></i> <input style="width: 80px;margin-right: 15px;" type="text" id="withdrawBal" placeholder="თანხა..."> <button id="withdraw">გატანა</button></a>
                <a class="dropdown-item border-top" href=""> <i class="fe fe-user"></i> My Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-edit"></i> Edit Profile </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Account Settings </a> <a class="dropdown-item" href=""> <i class="fe fe-settings"></i> Support </a> <a class="dropdown-item" href=""> <i class="fe fe-compass"></i> Activity </a> <a class="dropdown-item" href="index.php?act=sign_out"> <i class="fe fe-power"></i> Sign Out </a> 
             </div>
          </div>
