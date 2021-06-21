@@ -226,45 +226,7 @@
 							if($_SESSION['GRPID'] == 3){
 								echo '
 									<div id="mobile_courier_orders">
-										<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
-											<div class="col-md-6 col-sm-6 my-auto">
-												ID: 109
-											</div>
-											<div class="col-md-6 col-sm-6 my-auto" style="font-weight:bold;">
-												2021-05-23 23:17:30
-											</div>
-
-
-											<div class="col-md-6 col-sm-6 my-auto">
-												ბურგერი ბეკონით X1,
-												ბურგერი ბეკონით X1,
-												ბურგერი ბეკონით X1
-											</div>
-											<div class="col-md-6 col-sm-6 my-auto">
-												11.00 GEL
-											</div>
-
-
-											<div class="col-md-6 col-sm-6 my-auto">
-												15.5 კმ 
-											</div>
-											<div class="col-md-6 col-sm-6 my-auto">
-												Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия <a target="_blank" href="https://www.google.com/maps/place/Millennium Teaching Univerity, Ksani Street, Тбилиси, Грузия">(რუკის გახსნა)</a>
-											</div>
-											
-
-											<div class="col-md-6 col-sm-6 my-auto">
-												Giorgi ტელ: (599104454)
-											</div>
-											<div class="col-md-6 col-sm-6 my-auto">
-												<div class="cat_status_7">გაუქმებული</div>
-											</div>
-
-											<div class="col-md-12 col-sm-12 my-auto">
-												<div class="courier_start_order">შეკვეთის აღება</div>
-											</div>
-											
-										</div>
+										
 									</div>';
 							}
 							else{
@@ -570,8 +532,8 @@
 
 				var orders = data.result;
 				console.log(orders);
-				orders.forEach(function(index, item){
-					console.log(index.price)
+				orders.forEach(function(item, index){
+					$("#mobile_courier_orders").append('<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;"> <div class="col-md-6 col-sm-6 my-auto"> ID: '+item.id+' </div> <div class="col-md-6 col-sm-6 my-auto" style="font-weight:bold;"> '+item.datetime+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.order+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.price+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.km_to_client+' კმ </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.client_address+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.client_data+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.status+' </div><div class="col-md-12 col-sm-12 my-auto"> <div class="courier_start_order">შეკვეთის აღება</div> </div> </div>');
 				});
 			}
 		});
