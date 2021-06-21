@@ -501,7 +501,12 @@
 		<?php
 		if(isMobile()){
 			if($_SESSION['GRPID'] == 3){
-				echo 'loadCourierMobile();';
+				echo '
+				setInterval(function(){
+					loadCourierMobile();
+				}, 5000);
+				
+				';
 			}
 			else{
 				echo 'LoadKendoTable_incomming()';
