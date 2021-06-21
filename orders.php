@@ -571,7 +571,7 @@
 				var orders = data.result;
 
 				orders.forEach(function(index, item){
-					
+					console.log(item.price)
 				});
 			}
 		});
