@@ -539,7 +539,7 @@
 		<?php
 		if(isMobile()){
 			if($_SESSION['GRPID'] == 3){
-				echo 'alert(5555);';
+				echo 'loadCourierMobile();';
 			}
 			else{
 				echo 'LoadKendoTable_incomming()';
@@ -557,6 +557,19 @@
 			
 		?>
 	});
+	function loadCourierMobile(){
+		let params 				= new Object;
+		params.act 				= 'get_courier_data_mobile';
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				alert(123)
+			}
+		});
+	}
 	function LoadKendoTable_orderDetail(hidden){
 
 		//KendoUI CLASS CONFIGS BEGIN
