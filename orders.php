@@ -537,12 +537,18 @@
 	});
 	$( document ).ready(function() {
 		<?php
-		if($_SESSION['GRPID'] == 3){
-			echo 'LoadKendoTable_incomming_cc()';
+		if(isMobile()){
+			echo 'alert(324);';
 		}
 		else{
-			echo 'LoadKendoTable_incomming()';
+			if($_SESSION['GRPID'] == 3){
+				echo 'LoadKendoTable_incomming_cc()';
+			}
+			else{
+				echo 'LoadKendoTable_incomming()';
+			}
 		}
+		
 			
 		?>
 	});
