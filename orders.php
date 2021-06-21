@@ -227,9 +227,9 @@
 								echo '
 						<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;">
 							<div class="col-md-6 col-sm-6 my-auto">
-								109
+								ID: 109
 							</div>
-							<div class="col-md-6 col-sm-6 my-auto">
+							<div class="col-md-6 col-sm-6 my-auto" style="font-weight:bold;">
 								2021-05-23 23:17:30
 							</div>
 
