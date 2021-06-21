@@ -538,7 +538,12 @@
 	$( document ).ready(function() {
 		<?php
 		if(isMobile()){
-			echo 'alert(324);';
+			if($_SESSION['GRPID'] == 3){
+				echo 'alert(5555);';
+			}
+			else{
+				echo 'LoadKendoTable_incomming()';
+			}
 		}
 		else{
 			if($_SESSION['GRPID'] == 3){
