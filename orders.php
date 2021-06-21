@@ -536,7 +536,6 @@
 				$("#mobile_courier_orders").html('');
 
 				var orders = data.result;
-				console.log(orders);
 				orders.forEach(function(item, index){
 					$("#mobile_courier_orders").append('<div class="col-sm-6 col-md-3 row" style="border: 1px solid #00000045;background-color: #fff;text-align: center;margin: 10px 5px 12px 5px;box-shadow: 3px 3px 5px 3px #ccc;padding: 6px;"> <div class="col-md-6 col-sm-6 my-auto"> ID: '+item.id+' </div> <div class="col-md-6 col-sm-6 my-auto" style="font-weight:bold;"> '+item.datetime+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.order+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.price+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.km_to_client+' კმ </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.client_address+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.client_data+' </div> <div class="col-md-6 col-sm-6 my-auto"> '+item.status+' </div><div class="col-md-12 col-sm-12 my-auto"> <div class="courier_start_order">შეკვეთის აღება</div> </div> </div>');
 				});
