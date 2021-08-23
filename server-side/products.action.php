@@ -15,6 +15,26 @@ switch ($act){
         $id = $_REQUEST['id'];
         $data = array('page' => getPage(getProduct($id)));
     break;
+    case 'add_ingridient':
+        $id = $_REQUEST['product_id'];
+        $data = array('page' => getIngrPage(getIngr($id)));
+    break;
+        break;
+    case 'get_additional_ingredients':
+        $id             = $_REQUEST['product_id'];
+        $columnCount    = $_REQUEST['count'];
+		$cols[]         = $_REQUEST['cols'];
+        $db->setQuery(" SELECT  id,
+                                name_geo,
+                                name_rus,
+                                name_eng,
+                                price
+                        FROM    additional_product_ingredients
+                        WHERE   actived = 1 AND product_id = '$id'");
+       $data = $db->getKendoList($columnCount, $cols);
+
+
+    break;
     case 'save_product':
         $id = $_REQUEST['id'];
         $title_geo          = $_REQUEST['title_geo'];
@@ -53,6 +73,42 @@ switch ($act){
                                     ingredients_eng = '$ingredients_eng',
                                     user_id = '$user_id'
                             WHERE   id = '$id'");
+            $db->execQuery();
+        }
+    break;
+    case 'save_ingridient':
+        $id         = $_REQUEST['ingr_id'];
+        $product_id = $_REQUEST['product_id'];
+        $title_geo  = $_REQUEST['title_geo'];
+        $title_rus  = $_REQUEST['title_rus'];
+        $title_eng  = $_REQUEST['title_eng'];
+        $price      = $_REQUEST['price'];
+        if($id == ''){
+            $db->setQuery(" INSERT INTO  additional_product_ingredients 
+                            SET          name_geo = '$title_geo',
+                                         name_rus = '$title_rus',
+                                         name_eng = '$title_eng',
+                                         product_id = '$product_id',
+                                         price = '$price'");
+            $db->execQuery();
+        }
+        else{
+            $db->setQuery(" UPDATE  additional_product_ingredients 
+                            SET     name_geo = '$title_geo',
+                                    name_rus = '$title_rus',
+                                    name_eng = '$title_eng',
+                                    product_id = '$product_id',
+                                    price = '$price'
+                            WHERE   id = '$id'");
+            $db->execQuery();
+        }
+    break;
+    case 'disable_ingr':
+        $ids = $_REQUEST['id'];
+        $ids = explode(',',$ids);
+
+        foreach($ids AS $id){
+            $db->setQuery("UPDATE additional_product_ingredients SET actived = 0 WHERE id = '$id'");
             $db->execQuery();
         }
     break;
@@ -188,7 +244,49 @@ switch ($act){
 
 
 echo json_encode($data);
+function getIngr($id){
+    GLOBAL $db;
+    $db->setQuery(" SELECT  id,
+                            name_geo,
+                            name_rus,
+                            name_eng,
+                            price
+                    FROM    additional_product_ingredients
+                    WHERE   actived = 1 AND id = '$id'");
+    $result = $db->getResultArray();
 
+    return $result['result'][0];  
+}
+function getIngrPage($res){
+    $data .= '
+    
+    
+    <fieldset class="fieldset">
+        <legend>ინფორმაცია</legend>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>დასახელება GEO</label>
+                <input value="'.$res[name_geo].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_geo_ingr" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-12">
+                <label>დასახელება RUS</label>
+                <input value="'.$res[name_rus].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_rus_ingr" class="idle" autocomplete="off">
+            </div>
+            <div class="col-sm-12">
+                <label>დასახელება ENG</label>
+                <input value="'.$res[name_eng].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="title_eng_ingr" class="idle" autocomplete="off">
+            </div>
+
+            <div class="col-sm-12">
+                <label>ფასი</label>
+                <input value="'.$res[price].'" data-nec="0" style="height: 18px; width: 95%;" type="text" id="price_ingr" class="idle" autocomplete="off">
+            </div>
+        </div>
+    </fieldset>
+    <input type="hidden" id="ingr_id" value="'.$res[id].'">';
+
+    return $data;
+}
 function getPage($res = ''){
     $data .= '
     
@@ -235,6 +333,12 @@ function getPage($res = ''){
         <div class="col-sm-12">
             <label>ინგრედიენტები ENG</label>
             <textarea style="width: 100%;" id="ingredients_eng">'.$res[ingredients_eng].'</textarea>
+        </div>
+    </fieldset>
+    <fieldset class="fieldset">
+        <legend>დამატებითი ინგრედიენტები</legend>
+        <div class="col-sm-12">
+            <div id="add_ingr"></div>
         </div>
     </fieldset>
     <fieldset class="fieldset">

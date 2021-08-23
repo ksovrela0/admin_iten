@@ -293,9 +293,8 @@
 	<!-- Jquery js-->
 	
 	<div class="main-navbar-backdrop"></div>
-	<div title="პროდუქცია" id="get_edit_page">
-		<p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
-	</div>
+	<div title="პროდუქცია" id="get_edit_page"></div>
+	<div title="დამატებითი ინგრედიენტები" id="ingridient_page"></div>
 	<script>
 	var aJaxURL = "server-side/products.action.php";
 	$(document).on("dblclick", "#products tr.k-state-selected", function () {
@@ -317,6 +316,10 @@
 			success: function(data){
 				$('#get_edit_page').html(data.page);
 				$("#poduct_category").chosen();
+
+
+				var hidden = "&product_id="+dItem.id;
+				LoadKendoTable_ingredients(hidden);
 				$("#get_edit_page").dialog({
 					resizable: false,
 					height: "auto",
@@ -325,6 +328,89 @@
 					buttons: {
 						"შენახვა": function() {
 							save_product();
+						},
+						'დახურვა': function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				});
+			}
+		});
+	});
+	$(document).on("dblclick", "#add_ingr tr.k-state-selected", function () {
+		var grid = $("#add_ingr").data("kendoGrid");
+		var dItem = grid.dataItem($(this));
+		
+		if(dItem.id == ''){
+			return false;
+		}
+		
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: {
+				act: "add_ingridient",
+				product_id: dItem.id
+			},
+			dataType: "json",
+			success: function(data){
+				$('#ingridient_page').html(data.page);
+
+				$("#ingridient_page").dialog({
+					resizable: false,
+					height: "auto",
+					width: 300,
+					modal: true,
+					buttons: {
+						"შენახვა": function() {
+							save_ingridient();
+						},
+						'დახურვა': function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				});
+			}
+		});
+	});
+	$(document).on('click','#remove_ingridient',function(){
+		var removeIDS = [];
+		var entityGrid = $("#add_ingr").data("kendoGrid");
+		var rows = entityGrid.select();
+		rows.each(function(index, row) {
+			var selectedItem = entityGrid.dataItem(row);
+			// selectedItem has EntityVersionId and the rest of your model
+			removeIDS.push(selectedItem.id);
+		});
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: "act=disable_ingr&id=" + removeIDS,
+			dataType: "json",
+			success: function (data) {
+				$("#add_ingr").data("kendoGrid").dataSource.read();
+			}
+		});
+	});
+	$(document).on('click','#add_ingridient',function(){
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: {
+				act: "add_ingridient",
+				product_id: $("#product_id").val()
+			},
+			dataType: "json",
+			success: function(data){
+				$('#ingridient_page').html(data.page);
+				$("#ingridient_page").dialog({
+					resizable: false,
+					height: "auto",
+					width: 300,
+					modal: true,
+					buttons: {
+						"შენახვა": function() {
+							save_ingridient();
 						},
 						'დახურვა': function() {
 							$( this ).dialog( "close" );
@@ -383,6 +469,43 @@
 	$( document ).ready(function() {
 		LoadKendoTable_incomming()
 	});
+	function LoadKendoTable_ingredients(hidden){
+
+		//KendoUI CLASS CONFIGS BEGIN
+		var aJaxURL	        =   "server-side/products.action.php";
+		var gridName        = 	'add_ingr';
+		var actions         = 	'<div class="btn btn-list"><a id="add_ingridient" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-plus-square"></i> დამატება</a><a id="remove_ingridient" style="color:white;" class="btn ripple btn-primary"><i class="fas fa-trash"></i> წაშლა</a></div>';
+		var editType        =   "popup"; // Two types "popup" and "inline"
+		var itemPerPage     = 	20;
+		var columnsCount    =	5;
+		var columnsSQL      = 	[
+									"id:string",
+									"name_geo:string",
+									"name_rus:string",
+									"name_eng:string",
+									"price:string"
+								];
+		var columnGeoNames  = 	[
+									"ID", 
+									"დასახელება GEO",
+									"დასახელება RUS",
+									"დასახელება ENG",
+									"ფასი",
+								];
+
+		var showOperatorsByColumns  =   [0,0,0,0,0]; 
+		var selectors               =   [0,0,0,0,0]; 
+
+		var locked                  =   [0,0,0,0,0];
+		var lockable                =   [0,0,0,0,0];
+
+		var filtersCustomOperators = '{"date":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}, "number":{"start":"-დან","ends":"-მდე","eq":"ზუსტი"}}';
+		//KendoUI CLASS CONFIGS END
+			
+		const kendo = new kendoUI();
+		kendo.loadKendoUI(aJaxURL,'get_additional_ingredients',itemPerPage,columnsCount,columnsSQL,gridName,actions,editType,columnGeoNames,filtersCustomOperators,showOperatorsByColumns,selectors,hidden, 1, locked, lockable);
+
+	}
 	function LoadKendoTable_incomming(hidden){
 
 		//KendoUI CLASS CONFIGS BEGIN
@@ -477,6 +600,27 @@
 
 		}
 	});
+	function save_ingridient(){
+		let params 				= new Object;
+		params.act 				= 'save_ingridient';
+		params.product_id 		= $("#product_id").val();
+		params.ingr_id 			= $("#ingr_id").val();
+		params.title_geo 		= $("#title_geo_ingr").val();
+		params.title_rus 		= $("#title_rus_ingr").val();
+		params.title_eng		= $("#title_eng_ingr").val();
+
+		params.price 			= $("#price_ingr").val();
+		$.ajax({
+			url: aJaxURL,
+			type: "POST",
+			data: params,
+			dataType: "json",
+			success: function(data){
+				$("#add_ingr").data("kendoGrid").dataSource.read();
+				$('#ingridient_page').dialog("close");
+			}
+		});
+	}
 	function save_product(){
 		let params 				= new Object;
 		params.act 				= 'save_product';
